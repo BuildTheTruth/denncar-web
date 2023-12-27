@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head></head>
       <body>
         <Gnb />
-        <div>{children}</div>
+        <main>{children}</main>
       </body>
     </html>
   )

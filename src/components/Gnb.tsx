@@ -1,7 +1,6 @@
 'use client'
 
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined'
 import { Avatar, Box, Button, IconButton, Menu, MenuItem } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Container from '@mui/material/Container'
@@ -83,13 +82,11 @@ function Gnb() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0, display: 'flex' }}>
-            <IconButton onClick={handleProfileMenuOpen}>
-              {loggedInUser?.photoURL ? (
+            {loggedInUser?.photoURL && (
+              <IconButton onClick={handleProfileMenuOpen}>
                 <Avatar sx={{ width: 36, height: 36 }} src={loggedInUser.photoURL} />
-              ) : (
-                <AccountCircleOutlinedIcon fontSize="large" sx={{ color: 'white' }} />
-              )}
-            </IconButton>
+              </IconButton>
+            )}
             <Menu
               anchorEl={anchorProfileMenu}
               open={Boolean(anchorProfileMenu)}
