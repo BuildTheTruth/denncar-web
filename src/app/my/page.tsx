@@ -2,8 +2,8 @@
 
 import styled from '@emotion/styled'
 
-export default function AccountPage() {
-  return <Container>Account</Container>
+export default function MyPage() {
+  return <Container>MyPage</Container>
 }
 
 const Container = styled.div`

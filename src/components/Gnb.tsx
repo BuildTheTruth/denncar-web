@@ -22,6 +22,10 @@ function Gnb() {
   const { loggedInUser, onSubscribeAuthorization, signOut, signIn } = useLoggedInUserStore()
 
   const handleProfileMenuOpen = (event: MouseEvent<HTMLElement>) => {
+    if (!loggedInUser) {
+      signIn()
+      return
+    }
     setAnchorProfileMenu(event.currentTarget)
   }
 
@@ -29,20 +33,19 @@ function Gnb() {
     setAnchorProfileMenu(null)
   }
 
-  const handleAccountSelect = async () => {
-    if (!loggedInUser) {
-      await signIn()
-    }
-    router.push('/account')
+  const handleMyPageClick = () => {
+    router.push('/my')
   }
 
-  const profileMenuItems = useMemo(
-    () => [
-      { id: 'account', label: '계정', onClick: handleAccountSelect },
-      { id: 'logout', label: '로그아웃', onClick: signOut }
-    ],
-    [loggedInUser]
-  )
+  const handleLogout = async () => {
+    await signOut()
+    router.replace('/')
+  }
+
+  const profileMenuItems = [
+    { id: 'my', label: '마이페이지', onClick: handleMyPageClick },
+    { id: 'logout', label: '로그아웃', onClick: handleLogout }
+  ]
 
   useEffect(() => {
     onSubscribeAuthorization()
@@ -82,11 +85,9 @@ function Gnb() {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0, display: 'flex' }}>
-            {loggedInUser?.photoURL && (
-              <IconButton onClick={handleProfileMenuOpen}>
-                <Avatar sx={{ width: 36, height: 36 }} src={loggedInUser.photoURL} />
-              </IconButton>
-            )}
+            <IconButton onClick={handleProfileMenuOpen}>
+              <Avatar sx={{ width: 36, height: 36 }} src={loggedInUser?.photoURL ?? ''} />
+            </IconButton>
             <Menu
               anchorEl={anchorProfileMenu}
               open={Boolean(anchorProfileMenu)}

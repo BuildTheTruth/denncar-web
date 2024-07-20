@@ -12,6 +12,6 @@ interface LoggedInUserStore {
 export const useLoggedInUserStore = create<LoggedInUserStore>((set) => ({
   loggedInUser: null,
   onSubscribeAuthorization: () => onAuthStateChanged((user) => set({ loggedInUser: user })),
-  signIn: () => signInWithGoogle(),
-  signOut: () => signOutWithGoogle()
+  signIn: signInWithGoogle,
+  signOut: signOutWithGoogle
 }))
