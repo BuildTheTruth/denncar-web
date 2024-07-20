@@ -12,8 +12,8 @@ import { MouseEvent, useEffect, useMemo, useState } from 'react'
 
 const pages = [
   { id: 'boards', label: '자유게시판' },
-  { id: 'car-stories', label: '내차스토리' },
-  { id: 'used-cars', label: '중고차매매' }
+  { id: 'stories', label: '내차스토리' },
+  { id: 'cars', label: '중고차매매' }
 ]
 
 function Gnb() {
