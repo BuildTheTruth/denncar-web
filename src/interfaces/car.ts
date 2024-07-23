@@ -8,3 +8,5 @@ interface Car {
   price: number
   imageUrls: string
 }
+
+type CarParams = Omit<Car, 'id'>

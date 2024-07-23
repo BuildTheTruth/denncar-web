@@ -1,15 +1,36 @@
-import { getDocsByCollection } from '@/libs/firebase/firestore'
-import { useQuery } from 'react-query'
+import {
+  addDocInCollection,
+  deleteDocOnCollection,
+  getDocsByCollection,
+  updateDocOnCollection
+} from '@/libs/firebase/firestore'
+import { useMutation, useQuery } from 'react-query'
 
 const carsKeys = {
   all: ['cars'] as const
 }
 
 export const useCars = () => {
-  const { data: cars } = useQuery({
+  const { data: cars, refetch } = useQuery({
     queryKey: carsKeys.all,
     queryFn: () => getDocsByCollection<Car>('cars')
   })
 
-  return { cars }
+  const createCarMutation = useMutation({
+    mutationFn: (params: CarParams) => addDocInCollection('cars', params),
+    onSuccess: () => refetch()
+  })
+
+  const deleteCarMutation = useMutation({
+    mutationFn: (id: string) => deleteDocOnCollection('cars', id),
+    onSuccess: () => refetch()
+  })
+
+  const updateCarMutation = useMutation({
+    mutationFn: ({ id, ...params }: Partial<CarParams> & { id: string }) =>
+      updateDocOnCollection('cars', id, params),
+    onSuccess: () => refetch()
+  })
+
+  return { cars, createCarMutation, deleteCarMutation, updateCarMutation }
 }
