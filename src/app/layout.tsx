@@ -6,6 +6,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 import Gnb from '@/components/Gnb'
+import CustomQueryClientProvider from '@/providers/QueryClientProvider'
 
 export const metadata: Metadata = {
   title: '덴카'
@@ -16,8 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <head></head>
       <body>
-        <Gnb />
-        <main>{children}</main>
+        <CustomQueryClientProvider>
+          <Gnb />
+          <main>{children}</main>
+        </CustomQueryClientProvider>
       </body>
     </html>
   )

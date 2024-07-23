@@ -1,9 +1,9 @@
 'use client'
 
-import useCollection from '@/hooks/firestore/useCollection'
+import { useCars } from '@/queries/useCars'
 
 export default function CarsPage() {
-  const { data: cars } = useCollection<Car>('cars')
+  const { cars } = useCars()
 
   return (
     <div>
