@@ -1,7 +1,7 @@
 'use client'
 
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
-import emotionStyled from '@emotion/styled'
+import styled from '@emotion/styled'
 import { Avatar, Box, Button, IconButton, Menu, MenuItem } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -117,7 +117,7 @@ function Gnb({ children }: Props) {
   )
 }
 
-const Container = emotionStyled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;

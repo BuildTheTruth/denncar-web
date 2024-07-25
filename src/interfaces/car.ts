@@ -4,10 +4,11 @@ export interface Car {
   color: string
   manufacturer: string
   mileage: number
-  year: string
+  launch: string
   price: number
-  imageUrls: string
+  imageUrl: string
   createdAt: string
+  updatedAt?: string
 }
 
 export type CarParams = Omit<Car, 'id'>

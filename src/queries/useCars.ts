@@ -5,14 +5,14 @@ import {
   getDocsByCollection,
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 
-const carsKeys = {
+export const carsKeys = {
   all: ['cars'] as const
 }
 
 export const useCars = () => {
-  const { data: cars, refetch } = useQuery({
+  const { data: cars, refetch } = useSuspenseQuery({
     queryKey: carsKeys.all,
     queryFn: () => getDocsByCollection<Car>('cars')
   })

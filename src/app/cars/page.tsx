@@ -1,18 +1,19 @@
-import CarCard from '@/components/Card'
-import type { Car } from '@/interfaces/car'
 import { getDocsByCollection } from '@/libs/firebase/firestore'
-import { Grid } from '@mui/material'
+import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
+import CarPostList from './components/CarPostList'
+import { carsKeys } from '@/queries/useCars'
 
 export default async function CarsPage() {
-  const cars = await getDocsByCollection<Car>('cars')
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: carsKeys.all,
+    queryFn: () => getDocsByCollection('cars')
+  })
 
   return (
-    <Grid container spacing={2} padding={2}>
-      {cars.map((car) => (
-        <Grid item xs key={car.id}>
-          <CarCard car={car} />
-        </Grid>
-      ))}
-    </Grid>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <CarPostList />
+    </HydrationBoundary>
   )
 }

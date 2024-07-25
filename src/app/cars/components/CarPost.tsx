@@ -9,11 +9,15 @@ import CardMedia from '@mui/material/CardMedia'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 
+const IMAGE_URLS_SPLITTER = '||'
+
 interface Props {
   car: Car
 }
 
-export default function CarCard({ car }: Props) {
+export default function CarPost({ car }: Props) {
+  const imageUrls = car.imageUrl.split(IMAGE_URLS_SPLITTER)
+
   return (
     <Card sx={{ minWidth: 360 }}>
       <CardHeader
@@ -25,16 +29,16 @@ export default function CarCard({ car }: Props) {
         title={car.model}
         subheader={
           <div>
-            <span>{`${car.year.slice(0, 4)}/${car.year.slice(4)}`}</span>{' '}
+            <span>{`${car.launch.slice(0, 4)}/${car.launch.slice(4)}`}</span>{' '}
             <span>{car.mileage.toLocaleString()}km</span>
           </div>
         }
       />
       <CardMedia
         component="img"
-        height="194"
-        image="/static/images/cards/paella.jpg"
-        alt="Paella dish"
+        src={imageUrls?.[0] ?? '/logo.svg'}
+        height={240}
+        sx={{ objectFit: 'cover' }}
       />
       <CardContent>
         <Typography variant="body2">{car.price.toLocaleString()} 원</Typography>
