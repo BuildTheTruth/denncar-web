@@ -18,8 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head></head>
       <body>
         <CustomQueryClientProvider>
-          <Gnb />
-          <main>{children}</main>
+          <Gnb>{children}</Gnb>
         </CustomQueryClientProvider>
       </body>
     </html>

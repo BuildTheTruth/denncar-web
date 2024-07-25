@@ -1,14 +1,14 @@
 'use client'
 
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
+import emotionStyled from '@emotion/styled'
 import { Avatar, Box, Button, IconButton, Menu, MenuItem } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
-import Container from '@mui/material/Container'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { MouseEvent, useEffect, useMemo, useState } from 'react'
+import { MouseEvent, ReactNode, useEffect, useState } from 'react'
 
 const pages = [
   { id: 'boards', label: '자유게시판' },
@@ -16,7 +16,11 @@ const pages = [
   { id: 'cars', label: '중고차매매' }
 ]
 
-function Gnb() {
+interface Props {
+  children: ReactNode
+}
+
+function Gnb({ children }: Props) {
   const router = useRouter()
   const [anchorProfileMenu, setAnchorProfileMenu] = useState<HTMLElement | null>(null)
   const { loggedInUser, onSubscribeAuthorization, signOut, signIn } = useLoggedInUserStore()
@@ -52,9 +56,9 @@ function Gnb() {
   }, [])
 
   return (
-    <AppBar position="static" sx={{ background: '#1c1c1c' }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+    <Container>
+      <AppBar position="static" sx={{ background: '#1c1c1c' }}>
+        <Toolbar>
           <Box
             display="flex"
             alignItems="center"
@@ -107,8 +111,17 @@ function Gnb() {
             </Menu>
           </Box>
         </Toolbar>
-      </Container>
-    </AppBar>
+      </AppBar>
+      <main>{children}</main>
+    </Container>
   )
 }
+
+const Container = emotionStyled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+`
+
 export default Gnb
