@@ -1,3 +1,4 @@
+import type { Car, CarParams } from '@/interfaces/car'
 import {
   addDocInCollection,
   deleteDocOnCollection,

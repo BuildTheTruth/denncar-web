@@ -1,4 +1,4 @@
-interface Car {
+export interface Car {
   id: string
   model: string
   color: string
@@ -7,6 +7,7 @@ interface Car {
   year: string
   price: number
   imageUrls: string
+  createdAt: string
 }
 
-type CarParams = Omit<Car, 'id'>
+export type CarParams = Omit<Car, 'id'>

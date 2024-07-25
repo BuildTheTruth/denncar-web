@@ -1,7 +1,7 @@
 import { db } from '@/libs/firebase'
+import { extractDateByDoucmentData } from '@/utils/date'
 import {
   DocumentData,
-  FieldValue,
   addDoc,
   collection,
   deleteDoc,
@@ -13,10 +13,21 @@ import {
   updateDoc
 } from 'firebase/firestore'
 
-export const getDocsByCollection = async <T extends { id: string }>(path: string) => {
+export const getDocsByCollection = async <
+  T extends { id: string; createdAt: string; updatedAt?: string }
+>(
+  path: string
+) => {
   const ref = collection(db, path).withConverter({
     toFirestore: (data: T) => data,
-    fromFirestore: (snap) => ({ id: snap.id, ...snap.data() } as T)
+    fromFirestore: (snap) =>
+      ({
+        id: snap.id,
+        ...snap.data(),
+        ...extractDateByDoucmentData({ name: 'createdAt', data: snap.data() }),
+        ...(snap.data().updatedAt &&
+          extractDateByDoucmentData({ name: 'updatedAt', data: snap.data() }))
+      } as T)
   })
   const snapshot = await getDocs(query(ref, orderBy('createdAt')))
   return snapshot.docs.map((doc) => doc.data())
