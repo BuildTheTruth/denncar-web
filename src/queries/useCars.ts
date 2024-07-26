@@ -2,13 +2,15 @@ import type { Car, CarParams } from '@/interfaces/car'
 import {
   addDocInCollection,
   deleteDocOnCollection,
+  getDocByCollection,
   getDocsByCollection,
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 
 export const carsKeys = {
-  all: ['cars'] as const
+  all: ['cars'] as const,
+  detail: (carId: string) => [...carsKeys.all, carId] as const
 }
 
 export const useCars = () => {
@@ -34,4 +36,13 @@ export const useCars = () => {
   })
 
   return { cars, createCarMutation, deleteCarMutation, updateCarMutation }
+}
+
+export const useCar = (id: string) => {
+  const { data: car } = useSuspenseQuery({
+    queryKey: carsKeys.detail(id),
+    queryFn: () => getDocByCollection<Car>('cars', id)
+  })
+
+  return { car }
 }
