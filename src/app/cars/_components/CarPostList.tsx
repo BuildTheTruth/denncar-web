@@ -1,6 +1,6 @@
 'use client'
 
-import CarPost from '@/app/cars/components/CarPost'
+import CarPost from '@/app/cars/_components/CarPost'
 import { useCars } from '@/queries/useCars'
 import styled from '@emotion/styled'
 import AddIcon from '@mui/icons-material/Add'
