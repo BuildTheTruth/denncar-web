@@ -5,9 +5,15 @@ import { useCars } from '@/queries/useCars'
 import styled from '@emotion/styled'
 import AddIcon from '@mui/icons-material/Add'
 import { Box, Fab, Grid } from '@mui/material'
+import { useRouter } from 'next/navigation'
 
 export default function CarPostList() {
+  const router = useRouter()
   const { cars } = useCars()
+
+  const handleCarPostCreate = () => {
+    router.push(`/cars/new`)
+  }
 
   return (
     <Container>
@@ -19,7 +25,7 @@ export default function CarPostList() {
         ))}
       </Grid>
       <FabWrapper>
-        <Fab sx={{ background: '#1c1c1c' }}>
+        <Fab onClick={handleCarPostCreate} sx={{ background: '#1c1c1c' }}>
           <AddIcon htmlColor="white" />
         </Fab>
       </FabWrapper>
