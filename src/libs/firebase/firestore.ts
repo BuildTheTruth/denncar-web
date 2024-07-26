@@ -36,7 +36,7 @@ export const getDocsByCollection = async <T extends DocumentData>(path: string) 
 export const getDocByCollection = async <T extends DocumentData>(path: string, id: string) => {
   const ref = doc(db, path, id).withConverter(firestoreDataConverter<T>())
   const snapshot = await getDoc(ref)
-  return snapshot.data()
+  return snapshot.data() ?? null
 }
 
 export const addDocInCollection = <T extends DocumentData>(path: string, data: T) =>
