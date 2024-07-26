@@ -9,59 +9,59 @@ importers:
   .:
     dependencies:
       '@emotion/react':
-        specifier: ^11.11.1
+        specifier: ^11.13.0
         version: 11.13.0(@types/react@18.3.3)(react@18.3.1)
       '@emotion/styled':
-        specifier: ^11.11.0
+        specifier: ^11.13.0
         version: 11.13.0(@emotion/react@11.13.0(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react@18.3.1)
       '@fontsource/roboto':
-        specifier: ^5.0.8
+        specifier: ^5.0.13
         version: 5.0.13
       '@mui/icons-material':
-        specifier: ^5.14.19
+        specifier: ^5.16.5
         version: 5.16.5(@mui/material@5.16.5(@emotion/react@11.13.0(@types/react@18.3.3)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.0(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.3)(react@18.3.1)
       '@mui/material':
-        specifier: ^5.14.20
+        specifier: ^5.16.5
         version: 5.16.5(@emotion/react@11.13.0(@types/react@18.3.3)(react@18.3.1))(@emotion/styled@11.13.0(@emotion/react@11.13.0(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tanstack/react-query':
-        specifier: ^5.51.11
+        specifier: ^5.51.15
         version: 5.51.15(react@18.3.1)
       dayjs:
         specifier: ^1.11.12
         version: 1.11.12
       firebase:
-        specifier: ^10.7.1
+        specifier: ^10.12.4
         version: 10.12.4
       next:
         specifier: 14.0.4
         version: 14.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
-        specifier: ^18.2.0
+        specifier: ^18.3.1
         version: 18.3.1
       react-dom:
-        specifier: ^18.2.0
+        specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
       react-hook-form:
-        specifier: ^7.49.2
+        specifier: ^7.52.1
         version: 7.52.1(react@18.3.1)
       zustand:
-        specifier: ^4.4.7
+        specifier: ^4.5.4
         version: 4.5.4(@types/react@18.3.3)(react@18.3.1)
     devDependencies:
       '@emotion/babel-plugin':
         specifier: ^11.12.0
         version: 11.12.0
       '@types/node':
-        specifier: ^20.10.4
+        specifier: ^20.14.12
         version: 20.14.12
       '@types/react':
-        specifier: ^18.2.43
+        specifier: ^18.3.3
         version: 18.3.3
       '@types/react-dom':
-        specifier: ^18.2.17
+        specifier: ^18.3.0
         version: 18.3.0
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.5.4
         version: 5.5.4
 
 packages:
