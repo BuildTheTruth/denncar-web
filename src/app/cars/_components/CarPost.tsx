@@ -39,7 +39,11 @@ export default function CarPost({ car }: Props) {
         title={car.model}
         subheader={
           <div>
-            <span>{`${car.launch.slice(0, 4)}/${car.launch.slice(4)}`}</span>{' '}
+            <span>
+              {car.launch.length > 4
+                ? `${car.launch.slice(0, 4)}/${car.launch.slice(4)}`
+                : car.launch}
+            </span>{' '}
             <span>{car.mileage.toLocaleString()}km</span>
           </div>
         }

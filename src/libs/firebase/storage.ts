@@ -1,8 +1,20 @@
 import { storage } from '@/libs/firebase'
-import { getDownloadURL, ref } from 'firebase/storage'
+import { extractExtension } from '@/utils/file'
+import { User } from 'firebase/auth'
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 
-export const imageRef = ref(storage, 'images/granduar.jpeg')
+interface StorageFileParams {
+  carNo: string
+  path: string
+  file: File
+}
 
-export const imageUrl = async () => {
-  return await getDownloadURL(imageRef)
+const createStorageUrl = ({ path, carNo, file }: StorageFileParams) =>
+  `${path}/${carNo}/${new Date().getTime()}.${extractExtension(file)}`
+
+export const uploadFileToStorage = async (params: StorageFileParams) => {
+  const url = createStorageUrl(params)
+  const storageRef = ref(storage, url)
+  await uploadBytes(storageRef, params.file)
+  return getDownloadURL(storageRef)
 }

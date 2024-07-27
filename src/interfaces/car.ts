@@ -9,6 +9,8 @@ export interface Car {
   imageUrl: string
   createdAt: string
   updatedAt?: string
+  carNo: string
+  region: string
 }
 
-export type CarParams = Omit<Car, 'id'>
+export type CarParams = Omit<Car, 'id' | 'creaedAt' | 'updatedAt'>

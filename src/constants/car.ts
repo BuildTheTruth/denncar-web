@@ -4,7 +4,9 @@ export const CAR_PROP_NAMES = [
   'price',
   'color',
   'mileage',
-  'launch'
+  'launch',
+  'carNo',
+  'region'
 ] as const
 
 export type CarPropName = (typeof CAR_PROP_NAMES)[number]
