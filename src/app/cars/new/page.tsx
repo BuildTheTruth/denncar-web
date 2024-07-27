@@ -43,6 +43,12 @@ export default function NewCarPage() {
   }
 
   const handleCarImagesSelect = async (files: File[]) => {
+    setImageFiles(imageFiles.concat(files))
+  }
+
+  const handleCarImageClick = (index: number) => () => {
+    const files = imageFiles.slice()
+    files.splice(index, 1)
     setImageFiles(files)
   }
 
@@ -53,6 +59,7 @@ export default function NewCarPage() {
     )
     const imageUrl = urls.join(CAR_IMAGE_URL_SPLITTER)
     createCarMutation.mutate({ ...values, imageUrl })
+    router.push('/cars')
   }
 
   return (
@@ -63,7 +70,7 @@ export default function NewCarPage() {
           {getKeys(TEXT_FILED_PROPS_BY_CAR_PROP).map((key) => (
             <Grid key={key} item xs={1}>
               <TextField
-                {...register(key)}
+                {...register(key, { required: true })}
                 fullWidth
                 margin="dense"
                 label={TEXT_FILED_PROPS_BY_CAR_PROP[key].label}
@@ -83,11 +90,11 @@ export default function NewCarPage() {
         </Typography>
         <ImagesBox>
           {imageFiles.map((imageFile, index) => (
-            <ImageCard key={`car-image-${index}`}>
+            <ImageCard key={`car-image-${index}`} onClick={handleCarImageClick(index)}>
               <img src={URL.createObjectURL(imageFile)} />
             </ImageCard>
           ))}
-          <ImageCard sx={{ width: '160px', height: '160px' }}>
+          <ImageCard>
             <FileUploadButton onSelect={handleCarImagesSelect} />
           </ImageCard>
         </ImagesBox>
@@ -106,28 +113,24 @@ const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   margin: 16px;
-  width: 100%;
-  height: 100%;
 `
 
 const ImagesBox = styled(Box)`
   display: flex;
+  overflow: auto;
   margin: 8px 0;
 `
 
 const ImageCard = styled(Card)`
   display: flex;
   margin-right: 8px;
+  width: 160px;
+  height: 160px;
   img {
-    width: 160px;
-    height: 160px;
+    width: 100%;
+    height: 100%;
     object-fit: fill;
   }
-`
-
-const TextFieldsBox = styled(Box)`
-  display: flex;
-  flex-direction: column;
 `
 
 const ActionsBox = styled(Box)`

@@ -1,6 +1,5 @@
 import { storage } from '@/libs/firebase'
 import { extractExtension } from '@/utils/file'
-import { User } from 'firebase/auth'
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'
 
 interface StorageFileParams {

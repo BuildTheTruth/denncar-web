@@ -112,7 +112,7 @@ function Gnb({ children }: Props) {
           </Box>
         </Toolbar>
       </AppBar>
-      <main>{children}</main>
+      <Main>{children}</Main>
     </Container>
   )
 }
@@ -120,6 +120,13 @@ function Gnb({ children }: Props) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+`
+
+const Main = styled.main`
+  display: flex;
+  width: 100%;
   height: 100%;
 `
 

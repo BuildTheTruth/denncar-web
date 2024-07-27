@@ -29,7 +29,7 @@ export default function CarPost({ car }: Props) {
   }
 
   return (
-    <Card sx={{ maxWidth: 360 }} onClick={handleCardClick}>
+    <Card sx={{ width: 360 }} onClick={handleCardClick}>
       <CardHeader
         action={
           <IconButton aria-label="setting" onClick={handleSettingClick}>
