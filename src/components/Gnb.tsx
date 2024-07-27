@@ -1,5 +1,6 @@
 'use client'
 
+import MenuButton from '@/components/MenuButton'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import { Avatar, Box, Button, IconButton, Menu, MenuItem } from '@mui/material'
@@ -25,12 +26,12 @@ function Gnb({ children }: Props) {
   const [anchorProfileMenu, setAnchorProfileMenu] = useState<HTMLElement | null>(null)
   const { loggedInUser, onSubscribeAuthorization, signOut, signIn } = useLoggedInUserStore()
 
-  const handleProfileMenuOpen = (event: MouseEvent<HTMLElement>) => {
+  const handleProfileMenuOpen = () => {
     if (!loggedInUser) {
       signIn()
-      return
+      return false
     }
-    setAnchorProfileMenu(event.currentTarget)
+    return true
   }
 
   const handleProfileMenuClose = () => {
@@ -89,7 +90,7 @@ function Gnb({ children }: Props) {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0, display: 'flex' }}>
-            <IconButton onClick={handleProfileMenuOpen}>
+            {/* <IconButton onClick={handleProfileMenuOpen}>
               <Avatar sx={{ width: 36, height: 36 }} src={loggedInUser?.photoURL ?? ''} />
             </IconButton>
             <Menu
@@ -108,7 +109,12 @@ function Gnb({ children }: Props) {
                   <Typography>{item.label}</Typography>
                 </MenuItem>
               ))}
-            </Menu>
+            </Menu> */}
+            <MenuButton
+              icon={<Avatar sx={{ width: 36, height: 36 }} src={loggedInUser?.photoURL ?? ''} />}
+              onBeforeOpen={handleProfileMenuOpen}
+              items={profileMenuItems}
+            />
           </Box>
         </Toolbar>
       </AppBar>

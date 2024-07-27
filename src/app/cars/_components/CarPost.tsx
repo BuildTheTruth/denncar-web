@@ -3,6 +3,7 @@
 import { CAR_IMAGE_URL_SPLITTER } from '@/constants/splitters'
 import { Car } from '@/interfaces/car'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
+import { Box, Divider } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
@@ -11,6 +12,9 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/navigation'
 import { MouseEvent } from 'react'
+
+const getPresentLaunch = (launch: string) =>
+  launch.length > 4 ? `${launch.slice(0, 4)}/${launch.slice(4)}` : launch
 
 interface Props {
   car: Car
@@ -38,14 +42,11 @@ export default function CarPost({ car }: Props) {
         }
         title={car.model}
         subheader={
-          <div>
-            <span>
-              {car.launch.length > 4
-                ? `${car.launch.slice(0, 4)}/${car.launch.slice(4)}`
-                : car.launch}
-            </span>{' '}
-            <span>{car.mileage.toLocaleString()}km</span>
-          </div>
+          <Box display="flex">
+            <Typography fontWeight={600}>{getPresentLaunch(car.launch)}</Typography>
+            <Divider orientation="vertical" sx={{ margin: '0 4px', opacity: 0 }} />
+            <Typography>{car.mileage.toLocaleString()}km</Typography>
+          </Box>
         }
       />
       <CardMedia
