@@ -26,7 +26,7 @@ export default function CarPost({ car }: Props) {
   }
 
   return (
-    <Card sx={{ width: 360 }} onClick={handleCardClick}>
+    <Card sx={{ minWidth: '360px' }} onClick={handleCardClick}>
       <CardHeader
         title={car.model}
         subheader={
@@ -37,12 +37,7 @@ export default function CarPost({ car }: Props) {
           </Box>
         }
       />
-      <CardMedia
-        component="img"
-        src={imageUrls?.[0] ?? '/logo.svg'}
-        height={240}
-        sx={{ objectFit: 'cover' }}
-      />
+      <CardMedia component="img" src={imageUrls?.[0]} height={240} sx={{ objectFit: 'cover' }} />
       <CardContent sx={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Typography fontSize={24} fontWeight={600}>
           {car.price.toLocaleString()} 만원

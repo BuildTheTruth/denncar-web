@@ -27,7 +27,7 @@ export default function CarPostList() {
     <Container>
       <Grid sx={{ height: '100%', overflowY: 'auto' }} container spacing={2} padding={2}>
         {cars.map((car) => (
-          <Grid item key={car.id}>
+          <Grid xs item key={car.id}>
             <CarPost car={car} />
           </Grid>
         ))}

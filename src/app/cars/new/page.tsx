@@ -10,7 +10,16 @@ import { useCars } from '@/queries/useCars'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import { getKeys } from '@/utils/keys'
 import styled from '@emotion/styled'
-import { Box, Button, Card, Grid, InputAdornment, TextField, Typography } from '@mui/material'
+import {
+  Box,
+  Button,
+  Card,
+  CardMedia,
+  Grid,
+  InputAdornment,
+  TextField,
+  Typography
+} from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { HTMLInputTypeAttribute, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -98,7 +107,7 @@ export default function NewCarPage() {
         <ImagesBox>
           {imageFiles.map((imageFile, index) => (
             <ImageCard key={`car-image-${index}`} onClick={handleCarImageClick(index)}>
-              <img src={URL.createObjectURL(imageFile)} />
+              <CardMedia component="img" src={URL.createObjectURL(imageFile)} />
             </ImageCard>
           ))}
           <ImageCard>
