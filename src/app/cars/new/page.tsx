@@ -3,6 +3,7 @@
 import FileUploadButton from '@/components/FileUploadButton'
 import { CarPropName } from '@/constants/car'
 import { CAR_IMAGE_URL_SPLITTER } from '@/constants/splitters'
+import useToast from '@/hooks/useToast'
 import { CarParams } from '@/interfaces/car'
 import { uploadFileToStorage } from '@/libs/firebase/storage'
 import { useCars } from '@/queries/useCars'
@@ -34,6 +35,7 @@ const TEXT_FILED_PROPS_BY_CAR_PROP: {
 
 export default function NewCarPage() {
   const router = useRouter()
+  const toast = useToast()
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const { register, handleSubmit } = useForm<CarParams>()
   const { createCarMutation } = useCars()
@@ -60,6 +62,7 @@ export default function NewCarPage() {
     const imageUrl = urls.join(CAR_IMAGE_URL_SPLITTER)
     createCarMutation.mutate({ ...values, imageUrl })
     router.push('/cars')
+    toast.success('차량 등록 완료')
   }
 
   return (

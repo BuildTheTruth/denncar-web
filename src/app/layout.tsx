@@ -7,6 +7,7 @@ import './globals.css'
 
 import Gnb from '@/components/Gnb'
 import ReactQueryClientProvider from '@/providers/ReactQueryClientProvider'
+import ToastProvider from '@/providers/ToastProvider'
 
 export const metadata: Metadata = {
   title: '덴카'
@@ -18,7 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head></head>
       <body>
         <ReactQueryClientProvider>
-          <Gnb>{children}</Gnb>
+          <ToastProvider>
+            <Gnb>{children}</Gnb>
+          </ToastProvider>
         </ReactQueryClientProvider>
       </body>
     </html>

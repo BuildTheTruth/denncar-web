@@ -1,6 +1,7 @@
 'use client'
 
 import CarPost from '@/app/cars/_components/CarPost'
+import useToast from '@/hooks/useToast'
 import { useCars } from '@/queries/useCars'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
@@ -10,12 +11,13 @@ import { useRouter } from 'next/navigation'
 
 export default function CarPostList() {
   const router = useRouter()
+  const toast = useToast()
   const { cars } = useCars()
   const { loggedInUser } = useLoggedInUserStore()
 
   const handleCarPostCreate = () => {
     if (!loggedInUser) {
-      alert('로그인을 해주세요.')
+      toast.error('로그인을 해주세요.')
       return
     }
     router.push(`/cars/new`)
