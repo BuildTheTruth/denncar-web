@@ -3,13 +3,13 @@
 import MenuButton from '@/components/MenuButton'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
-import { Avatar, Box, Button, IconButton, Menu, MenuItem } from '@mui/material'
+import { Avatar, Box, Button } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { MouseEvent, ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useEffect } from 'react'
 
 const pages = [
   { id: 'boards', label: '자유게시판' },
@@ -23,7 +23,6 @@ interface Props {
 
 function Gnb({ children }: Props) {
   const router = useRouter()
-  const [anchorProfileMenu, setAnchorProfileMenu] = useState<HTMLElement | null>(null)
   const { loggedInUser, onSubscribeAuthorization, signOut, signIn } = useLoggedInUserStore()
 
   const handleProfileMenuOpen = () => {
@@ -32,10 +31,6 @@ function Gnb({ children }: Props) {
       return false
     }
     return true
-  }
-
-  const handleProfileMenuClose = () => {
-    setAnchorProfileMenu(null)
   }
 
   const handleMyPageClick = () => {
@@ -90,26 +85,6 @@ function Gnb({ children }: Props) {
             ))}
           </Box>
           <Box sx={{ flexGrow: 0, display: 'flex' }}>
-            {/* <IconButton onClick={handleProfileMenuOpen}>
-              <Avatar sx={{ width: 36, height: 36 }} src={loggedInUser?.photoURL ?? ''} />
-            </IconButton>
-            <Menu
-              anchorEl={anchorProfileMenu}
-              open={Boolean(anchorProfileMenu)}
-              onClose={handleProfileMenuClose}
-            >
-              {profileMenuItems.map((item) => (
-                <MenuItem
-                  key={item.id}
-                  onClick={() => {
-                    item.onClick()
-                    handleProfileMenuClose()
-                  }}
-                >
-                  <Typography>{item.label}</Typography>
-                </MenuItem>
-              ))}
-            </Menu> */}
             <MenuButton
               icon={<Avatar sx={{ width: 36, height: 36 }} src={loggedInUser?.photoURL ?? ''} />}
               onBeforeOpen={handleProfileMenuOpen}
@@ -134,6 +109,7 @@ const Main = styled.main`
   display: flex;
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
 `
 
 export default Gnb

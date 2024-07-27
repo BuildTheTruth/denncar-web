@@ -2,16 +2,13 @@
 
 import { CAR_IMAGE_URL_SPLITTER } from '@/constants/splitters'
 import { Car } from '@/interfaces/car'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
 import { Box, Divider } from '@mui/material'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 import CardMedia from '@mui/material/CardMedia'
-import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import { useRouter } from 'next/navigation'
-import { MouseEvent } from 'react'
 
 const getPresentLaunch = (launch: string) =>
   launch.length > 4 ? `${launch.slice(0, 4)}/${launch.slice(4)}` : launch
@@ -24,10 +21,6 @@ export default function CarPost({ car }: Props) {
   const router = useRouter()
   const imageUrls = car.imageUrl.split(CAR_IMAGE_URL_SPLITTER)
 
-  const handleSettingClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation()
-  }
-
   const handleCardClick = () => {
     router.push(`/cars/${car.id}`)
   }
@@ -35,11 +28,6 @@ export default function CarPost({ car }: Props) {
   return (
     <Card sx={{ width: 360 }} onClick={handleCardClick}>
       <CardHeader
-        action={
-          <IconButton aria-label="setting" onClick={handleSettingClick}>
-            <MoreVertIcon />
-          </IconButton>
-        }
         title={car.model}
         subheader={
           <Box display="flex">

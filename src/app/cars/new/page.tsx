@@ -7,6 +7,7 @@ import useToast from '@/hooks/useToast'
 import { CarParams } from '@/interfaces/car'
 import { uploadFileToStorage } from '@/libs/firebase/storage'
 import { useCars } from '@/queries/useCars'
+import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import { getKeys } from '@/utils/keys'
 import styled from '@emotion/styled'
 import { Box, Button, Card, Grid, InputAdornment, TextField, Typography } from '@mui/material'
@@ -39,6 +40,7 @@ export default function NewCarPage() {
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const { register, handleSubmit } = useForm<CarParams>()
   const { createCarMutation } = useCars()
+  const { loggedInUser } = useLoggedInUserStore()
 
   const handleCancel = () => {
     router.back()
@@ -55,12 +57,14 @@ export default function NewCarPage() {
   }
 
   const onSubmit = async (values: CarParams) => {
+    if (!loggedInUser) return
     const { carNo } = values
     const urls = await Promise.all(
       imageFiles.map((file) => uploadFileToStorage({ carNo, path: 'images/cars', file }))
     )
     const imageUrl = urls.join(CAR_IMAGE_URL_SPLITTER)
-    createCarMutation.mutate({ ...values, imageUrl })
+    const createdBy = loggedInUser.uid
+    createCarMutation.mutate({ ...values, imageUrl, createdBy })
     router.push('/cars')
     toast.success('차량 등록 완료')
   }
