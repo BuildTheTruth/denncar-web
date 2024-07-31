@@ -5,7 +5,7 @@ export const CAR_PROP_NAMES = [
   'color',
   'mileage',
   'launch',
-  'carNo',
+  'no',
   'region'
 ] as const
 

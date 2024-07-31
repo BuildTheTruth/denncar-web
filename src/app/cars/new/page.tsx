@@ -33,7 +33,7 @@ interface CarTextFieldProp {
 const TEXT_FILED_PROPS_BY_CAR_PROP: {
   [key in CarPropName]: CarTextFieldProp
 } = {
-  carNo: { label: '차번호' },
+  no: { label: '차번호' },
   model: { label: '모델명' },
   manufacturer: { label: '제조사' },
   launch: { label: '연식' },
@@ -65,15 +65,14 @@ export default function NewCarPage() {
     setImageFiles(files)
   }
 
-  const onSubmit = async (values: CarParams) => {
+  const onSubmit = async (car: CarParams) => {
     if (!loggedInUser) return
-    const { carNo } = values
     const urls = await Promise.all(
-      imageFiles.map((file) => uploadFileToStorage({ carNo, path: 'images/cars', file }))
+      imageFiles.map((file) => uploadFileToStorage({ carNo: car.no, path: 'images/cars', file }))
     )
     const imageUrl = urls.join(CAR_IMAGE_URL_SPLITTER)
     const createdBy = loggedInUser.uid
-    createCarMutation.mutate({ ...values, imageUrl, createdBy })
+    createCarMutation.mutate({ ...car, imageUrl, createdBy })
     router.push('/cars')
     toast.success('차량 등록 완료')
   }

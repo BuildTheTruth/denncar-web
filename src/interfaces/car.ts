@@ -9,7 +9,7 @@ export interface Car {
   imageUrl: string
   createdAt: string
   updatedAt?: string
-  carNo: string
+  no: string
   region: string
   createdBy: string
 }
