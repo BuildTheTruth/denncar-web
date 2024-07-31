@@ -34,10 +34,10 @@ export default function CarDetail({ carId }: Props) {
             <Typography fontWeight={600} variant="h5">
               {car.model}
             </Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography>{car.mileage} km</Typography>
+            <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+              <Typography fontWeight={500}>{car.mileage} km</Typography>
               <DotDivider />
-              <Typography>
+              <Typography color="gray" fontWeight={500}>
                 {car.launch.slice(0, 4)}년 {car.launch.slice(4)}월{' '}
               </Typography>
               <DotDivider />
