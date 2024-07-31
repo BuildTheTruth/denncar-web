@@ -26,8 +26,9 @@ export default function CarPost({ car }: Props) {
   }
 
   return (
-    <Card sx={{ minWidth: '360px' }} onClick={handleCardClick}>
+    <Card onClick={handleCardClick}>
       <CardHeader
+        sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}
         title={car.model}
         subheader={
           <Box display="flex">
