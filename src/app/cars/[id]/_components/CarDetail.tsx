@@ -95,5 +95,5 @@ const DotDivider = styled(Divider)`
 const SwiperWrapper = styled.div`
   margin: 24px 0;
   height: 600px;
-  width: 800px;
+  width: 720px;
 `
