@@ -1,3 +1,4 @@
+import useToast from '@/hooks/useToast'
 import type { Car, CarParams } from '@/interfaces/car'
 import {
   addDocInCollection,
@@ -7,6 +8,7 @@ import {
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 
 export const carsKeys = {
   all: ['cars'] as const,
@@ -14,6 +16,9 @@ export const carsKeys = {
 }
 
 export const useCars = () => {
+  const toast = useToast()
+  const router = useRouter()
+
   const { data: cars, refetch } = useSuspenseQuery({
     queryKey: carsKeys.all,
     queryFn: () => getDocsByCollection<Car>('cars')
@@ -21,28 +26,42 @@ export const useCars = () => {
 
   const createCarMutation = useMutation({
     mutationFn: (params: CarParams) => addDocInCollection('cars', params),
-    onSuccess: () => refetch()
+    onSuccess: () => {
+      toast.success('차량 등록 완료')
+      router.replace('/cars')
+      refetch()
+    }
   })
 
   const deleteCarMutation = useMutation({
     mutationFn: (id: string) => deleteDocOnCollection('cars', id),
-    onSuccess: () => refetch()
+    onSuccess: () => {
+      toast.success('차량 삭제 완료')
+      router.replace('/cars')
+      refetch()
+    }
   })
 
-  const updateCarMutation = useMutation({
-    mutationFn: ({ id, ...params }: Partial<CarParams> & { id: string }) =>
-      updateDocOnCollection('cars', id, params),
-    onSuccess: () => refetch()
-  })
-
-  return { cars, createCarMutation, deleteCarMutation, updateCarMutation }
+  return { cars, createCarMutation, deleteCarMutation }
 }
 
 export const useCar = (id: string) => {
-  const { data: car } = useSuspenseQuery({
+  const toast = useToast()
+  const router = useRouter()
+
+  const { data: car, refetch } = useSuspenseQuery({
     queryKey: carsKeys.detail(id),
     queryFn: () => getDocByCollection<Car>('cars', id)
   })
 
-  return { car }
+  const updateCarMutation = useMutation({
+    mutationFn: (params: Partial<CarParams>) => updateDocOnCollection('cars', id, params),
+    onSuccess: () => {
+      toast.success('차량 수정 완료')
+      router.replace(`/cars/${id}`)
+      refetch()
+    }
+  })
+
+  return { car, updateCarMutation }
 }

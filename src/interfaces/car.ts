@@ -14,4 +14,4 @@ export interface Car {
   createdBy: string
 }
 
-export type CarParams = Omit<Car, 'id' | 'creaedAt' | 'updatedAt'>
+export type CarParams = Omit<Car, 'id' | 'createdAt' | 'updatedAt'>
