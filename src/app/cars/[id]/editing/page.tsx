@@ -35,6 +35,7 @@ export default function EditingCarPage({ params }: Props) {
         region: car.region,
         createdBy: car.createdBy
       }}
+      submitButtonName="수정"
     />
   )
 }

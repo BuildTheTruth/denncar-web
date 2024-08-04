@@ -64,7 +64,7 @@ export default function CarDetail({ carId }: Props) {
         <SwiperWrapper>
           <Swiper
             spaceBetween={30}
-            loop={true}
+            loop={imageUrls.length > 1}
             pagination={{
               clickable: true
             }}

@@ -11,5 +11,5 @@ export default function NewCarPage() {
     createCarMutation.mutate(params)
   }
 
-  return <CarForm onSubmit={handleSubmit} />
+  return <CarForm onSubmit={handleSubmit} submitButtonName="등록" />
 }

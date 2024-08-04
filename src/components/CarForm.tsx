@@ -43,9 +43,10 @@ const TEXT_FILED_PROPS_BY_CAR_PROP: {
 interface Props {
   onSubmit: (values: CarParams) => void
   defaultValues?: CarParams
+  submitButtonName: string
 }
 
-export default function CarForm({ defaultValues, onSubmit }: Props) {
+export default function CarForm({ defaultValues, onSubmit, submitButtonName }: Props) {
   const originImageUrls = defaultValues?.imageUrl?.split(CAR_IMAGE_URL_SPLITTER) ?? []
   const router = useRouter()
   const [imageFiles, setImageFiles] = useState<File[]>([])
@@ -139,7 +140,7 @@ export default function CarForm({ defaultValues, onSubmit }: Props) {
       <ActionsBox>
         <Button onClick={handleCancel}>취소</Button>
         <Button variant="contained" color="primary" type="submit">
-          등록
+          {submitButtonName}
         </Button>
       </ActionsBox>
     </Container>
