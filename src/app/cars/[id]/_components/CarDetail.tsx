@@ -43,8 +43,8 @@ export default function CarDetail({ carId }: Props) {
   return (
     <Container>
       <CarInfoWrapper>
-        <Box sx={{ display: 'flex', m: 1 }}>
-          <Box>
+        <Box sx={{ display: 'flex', m: 1, width: '100%' }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography fontWeight={600} variant="h5">
               {car.model}
             </Typography>
@@ -108,7 +108,10 @@ const Container = styled.div`
 `
 
 const CarInfoWrapper = styled.div`
-  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 16px;
 `
 
 const DotDivider = styled(Divider)`
@@ -117,7 +120,7 @@ const DotDivider = styled(Divider)`
 `
 
 const SwiperWrapper = styled.div`
-  margin: 24px 0;
+  margin: 8px 0;
   height: 600px;
   width: 720px;
 `
