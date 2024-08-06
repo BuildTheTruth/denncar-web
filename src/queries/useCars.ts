@@ -7,7 +7,7 @@ import {
   getDocsByCollection,
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
 export const carsKeys = {
@@ -33,21 +33,13 @@ export const useCars = () => {
     }
   })
 
-  const deleteCarMutation = useMutation({
-    mutationFn: (id: string) => deleteDocOnCollection('cars', id),
-    onSuccess: () => {
-      toast.success('차량 삭제 완료')
-      router.replace('/cars')
-      refetch()
-    }
-  })
-
-  return { cars, createCarMutation, deleteCarMutation }
+  return { cars, createCarMutation }
 }
 
 export const useCar = (id: string) => {
   const toast = useToast()
   const router = useRouter()
+  const queryClient = useQueryClient()
 
   const { data: car, refetch } = useSuspenseQuery({
     queryKey: carsKeys.detail(id),
@@ -63,5 +55,14 @@ export const useCar = (id: string) => {
     }
   })
 
-  return { car, updateCarMutation }
+  const deleteCarMutation = useMutation({
+    mutationFn: () => deleteDocOnCollection('cars', id),
+    onSuccess: () => {
+      toast.success('차량 삭제 완료')
+      router.replace('/cars')
+      queryClient.invalidateQueries({ queryKey: carsKeys.all })
+    }
+  })
+
+  return { car, updateCarMutation, deleteCarMutation }
 }

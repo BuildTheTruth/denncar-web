@@ -7,6 +7,7 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import { Box, Divider, Fab, Typography } from '@mui/material'
 import { notFound, useRouter } from 'next/navigation'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 
@@ -20,7 +21,7 @@ interface Props {
 }
 
 export default function CarDetail({ carId }: Props) {
-  const { car } = useCar(carId)
+  const { car, deleteCarMutation } = useCar(carId)
   const router = useRouter()
 
   if (!car) {
@@ -33,6 +34,10 @@ export default function CarDetail({ carId }: Props) {
 
   const handleEditingClick = () => {
     router.push(`/cars/${carId}/editing`)
+  }
+
+  const handleDeleteClick = () => {
+    deleteCarMutation.mutate()
   }
 
   return (
@@ -83,8 +88,11 @@ export default function CarDetail({ carId }: Props) {
       </CarInfoWrapper>
       {isCreator && (
         <FabWrapper>
-          <Fab sx={{ background: '#1c1c1c' }} onClick={handleEditingClick}>
+          <Fab sx={{ background: '#1c1c1c', marginRight: 1 }} onClick={handleEditingClick}>
             <SettingsIcon htmlColor="white" />
+          </Fab>
+          <Fab color="error" onClick={handleDeleteClick}>
+            <DeleteIcon htmlColor="white" />
           </Fab>
         </FabWrapper>
       )}
