@@ -7,6 +7,7 @@ import {
   getDocsByCollection,
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
+import { deleteDirectoryInStorage } from '@/libs/firebase/storage'
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
@@ -58,9 +59,11 @@ export const useCar = (id: string) => {
   const deleteCarMutation = useMutation({
     mutationFn: () => deleteDocOnCollection('cars', id),
     onSuccess: () => {
+      if (!car) return
       toast.success('차량 삭제 완료')
       router.replace('/cars')
       queryClient.invalidateQueries({ queryKey: carsKeys.all })
+      deleteDirectoryInStorage(`/images/cars/${car.no}`)
     }
   })
 

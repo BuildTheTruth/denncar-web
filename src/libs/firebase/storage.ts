@@ -1,6 +1,6 @@
 import { storage } from '@/libs/firebase'
 import { extractExtension } from '@/utils/file'
-import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage'
+import { deleteObject, getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage'
 
 interface StorageFileParams {
   carNo: string
@@ -19,3 +19,9 @@ export const uploadFileToStorage = async (params: StorageFileParams) => {
 }
 
 export const deleteFileInStorage = (path: string) => deleteObject(ref(storage, path))
+
+export const deleteDirectoryInStorage = async (path: string) => {
+  const storageRef = ref(storage, path)
+  const listResult = await listAll(storageRef)
+  await Promise.all(listResult.items.map((itemRef) => deleteObject(itemRef)))
+}
