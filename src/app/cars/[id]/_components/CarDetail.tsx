@@ -3,11 +3,11 @@
 import { CAR_IMAGE_URL_SPLITTER } from '@/constants/splitters'
 import { useCar } from '@/queries/useCars'
 import styled from '@emotion/styled'
+import DeleteIcon from '@mui/icons-material/Delete'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { Box, Divider, Fab, Typography } from '@mui/material'
 import { notFound, useRouter } from 'next/navigation'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import DeleteIcon from '@mui/icons-material/Delete'
 
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export default function CarDetail({ carId }: Props) {
-  const { car, deleteCarMutation } = useCar(carId)
+  const { car } = useCar(carId)
   const router = useRouter()
 
   if (!car) {
@@ -33,11 +33,11 @@ export default function CarDetail({ carId }: Props) {
   const isCreator = loggedInUser?.uid === car.createdBy
 
   const handleEditingClick = () => {
-    router.push(`/cars/${carId}/editing`)
+    router.push(`/cars/${carId}/edit`)
   }
 
   const handleDeleteClick = () => {
-    deleteCarMutation.mutate()
+    router.push(`/cars/${carId}/delete`)
   }
 
   return (

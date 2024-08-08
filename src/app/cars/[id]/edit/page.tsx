@@ -9,7 +9,7 @@ interface Props {
   params: { id: string }
 }
 
-export default function EditingCarPage({ params }: Props) {
+export default function CarEditPage({ params }: Props) {
   const { updateCarMutation, car } = useCar(params.id)
 
   if (!car) {
