@@ -52,7 +52,7 @@ export default function CarForm({ defaultValues, onSubmit, submitButtonName }: P
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [imageUrls, setImageUrls] = useState(originImageUrls)
   const { register, handleSubmit } = useForm<CarParams>({ defaultValues })
-  const { loggedInUser } = useLoggedInUserStore()
+  const { firebaseUser } = useLoggedInUserStore()
 
   const handleCancel = () => {
     router.back()
@@ -75,7 +75,7 @@ export default function CarForm({ defaultValues, onSubmit, submitButtonName }: P
   }
 
   const interceptSubmit = async (car: CarParams) => {
-    if (!loggedInUser) return
+    if (!firebaseUser) return
 
     if (originImageUrls.length > 0) {
       const removedImageUrls = originImageUrls.filter((url) => !imageUrls.includes(url))
@@ -90,9 +90,9 @@ export default function CarForm({ defaultValues, onSubmit, submitButtonName }: P
     )
 
     const imageUrl = imageUrls.concat(urls).join(CAR_IMAGE_URL_SPLITTER)
-    const createdBy = loggedInUser.uid
+    const authorId = firebaseUser.uid
 
-    onSubmit({ ...car, imageUrl, createdBy })
+    onSubmit({ ...car, imageUrl, authorId })
   }
 
   return (

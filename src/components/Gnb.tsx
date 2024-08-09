@@ -23,10 +23,10 @@ interface Props {
 
 function Gnb({ children }: Props) {
   const router = useRouter()
-  const { loggedInUser, onSubscribeAuthorization, signOut, signIn } = useLoggedInUserStore()
+  const { firebaseUser, onSubscribeAuthorization, signOut, signIn } = useLoggedInUserStore()
 
   const handleProfileMenuOpen = () => {
-    if (!loggedInUser) {
+    if (!firebaseUser) {
       signIn()
       return false
     }
@@ -86,7 +86,7 @@ function Gnb({ children }: Props) {
           </Box>
           <Box sx={{ flexGrow: 0, display: 'flex' }}>
             <MenuButton
-              icon={<Avatar sx={{ width: 36, height: 36 }} src={loggedInUser?.photoURL ?? ''} />}
+              icon={<Avatar sx={{ width: 36, height: 36 }} src={firebaseUser?.photoURL ?? ''} />}
               onBeforeOpen={handleProfileMenuOpen}
               items={profileMenuItems}
             />

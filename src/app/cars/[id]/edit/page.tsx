@@ -33,7 +33,7 @@ export default function CarEditPage({ params }: Props) {
         price: car.price,
         imageUrl: car.imageUrl,
         region: car.region,
-        createdBy: car.createdBy
+        authorId: car.authorId
       }}
       submitButtonName="수정"
     />

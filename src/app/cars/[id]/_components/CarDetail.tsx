@@ -28,9 +28,9 @@ export default function CarDetail({ carId }: Props) {
     return notFound()
   }
 
-  const { loggedInUser } = useLoggedInUserStore()
+  const { firebaseUser } = useLoggedInUserStore()
   const imageUrls = car.imageUrl.split(CAR_IMAGE_URL_SPLITTER)
-  const isCreator = loggedInUser?.uid === car.createdBy
+  const isCreator = firebaseUser?.uid === car.authorId
 
   const handleEditingClick = () => {
     router.push(`/cars/${carId}/edit`)

@@ -13,10 +13,10 @@ export default function CarPostList() {
   const router = useRouter()
   const toast = useToast()
   const { cars } = useCars()
-  const { loggedInUser } = useLoggedInUserStore()
+  const { firebaseUser } = useLoggedInUserStore()
 
   const handleCarPostCreate = () => {
-    if (!loggedInUser) {
+    if (!firebaseUser) {
       toast.error('로그인을 해주세요.')
       return
     }

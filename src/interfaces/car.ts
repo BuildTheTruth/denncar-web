@@ -11,7 +11,7 @@ export interface Car {
   updatedAt?: string
   no: string
   region: string
-  createdBy: string
+  authorId: string
 }
 
 export type CarParams = Omit<Car, 'id' | 'createdAt' | 'updatedAt'>
