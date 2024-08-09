@@ -42,8 +42,8 @@ export default function CarDetail({ carId }: Props) {
 
   return (
     <Container>
-      <CarInfoWrapper>
-        <Box sx={{ display: 'flex', m: 1, width: '100%' }}>
+      <Box sx={{ display: 'flex', m: 1, alignItems: 'center', flexDirection: 'column' }}>
+        <CarInfoWrapper>
           <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             <Typography fontWeight={600} variant="h5">
               {car.model}
@@ -60,12 +60,12 @@ export default function CarDetail({ carId }: Props) {
               <Typography>{car.no}</Typography>
             </Box>
           </Box>
-          <Box sx={{ display: 'flex', flex: 1, justifyContent: 'end', alignItems: 'center' }}>
+          <PriceWrapper>
             <Typography variant="h6" color="red">
               {car.price}만원
             </Typography>
-          </Box>
-        </Box>
+          </PriceWrapper>
+        </CarInfoWrapper>
         <SwiperWrapper>
           <Swiper
             spaceBetween={30}
@@ -85,7 +85,7 @@ export default function CarDetail({ carId }: Props) {
             ))}
           </Swiper>
         </SwiperWrapper>
-      </CarInfoWrapper>
+      </Box>
       {isCreator && (
         <FabWrapper>
           <Fab sx={{ background: '#1c1c1c', marginRight: 1 }} onClick={handleEditingClick}>
@@ -109,9 +109,21 @@ const Container = styled.div`
 
 const CarInfoWrapper = styled.div`
   display: flex;
-  flex-direction: column;
+  width: 100%;
+  margin: 16px 0;
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
+`
+const PriceWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  justify-content: end;
   align-items: center;
-  margin: 16px;
+  @media (max-width: 720px) {
+    margin-top: 8px;
+    justify-content: start;
+  }
 `
 
 const DotDivider = styled(Divider)`
@@ -123,6 +135,15 @@ const SwiperWrapper = styled.div`
   margin: 8px 0;
   height: 600px;
   width: 720px;
+  @media (max-width: 720px) {
+    width: 90vw;
+    height: 50vh;
+  }
+
+  @media (max-width: 320px) {
+    width: 320px;
+    height: 320px;
+  }
 `
 
 const FabWrapper = styled(Box)`
