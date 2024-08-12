@@ -11,6 +11,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { Autoplay, Navigation, Pagination } from 'swiper/modules'
 
+import AutoImage from '@/components/AutoImage'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -80,7 +81,7 @@ export default function CarDetail({ carId }: Props) {
           >
             {imageUrls.map((imageUrl) => (
               <SwiperSlide key={imageUrl}>
-                <img src={imageUrl} />
+                <AutoImage src={imageUrl} />
               </SwiperSlide>
             ))}
           </Swiper>

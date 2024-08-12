@@ -1,3 +1,4 @@
+import AutoImage from '@/components/AutoImage'
 import FileUploadButton from '@/components/FileUploadButton'
 import { CarPropName } from '@/constants/car'
 import { CAR_IMAGE_URL_SPLITTER } from '@/constants/splitters'
@@ -7,16 +8,7 @@ import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import { extractImagePath } from '@/utils/image'
 import { getKeys } from '@/utils/keys'
 import styled from '@emotion/styled'
-import {
-  Box,
-  Button,
-  Card,
-  CardMedia,
-  Grid,
-  InputAdornment,
-  TextField,
-  Typography
-} from '@mui/material'
+import { Box, Button, Card, Grid, InputAdornment, TextField, Typography } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { HTMLInputTypeAttribute, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -124,12 +116,12 @@ export default function CarForm({ defaultValues, onSubmit, submitButtonName }: P
         <ImagesBox>
           {imageUrls.map((imageUrl, index) => (
             <ImageCard key={`car-image-url-${index}`} onClick={handleImageUrlClick(index)}>
-              <CardMedia component="img" src={imageUrl} />
+              <AutoImage src={imageUrl} />
             </ImageCard>
           ))}
           {imageFiles.map((imageFile, index) => (
             <ImageCard key={`car-image-file-${index}`} onClick={handleImageFileClick(index)}>
-              <CardMedia component="img" src={URL.createObjectURL(imageFile)} />
+              <AutoImage src={URL.createObjectURL(imageFile)} />
             </ImageCard>
           ))}
           <ImageCard>
@@ -164,11 +156,6 @@ const ImageCard = styled(Card)`
   margin-right: 8px;
   width: 160px;
   height: 160px;
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-  }
 `
 
 const ActionsBox = styled(Box)`
