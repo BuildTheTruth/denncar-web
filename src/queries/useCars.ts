@@ -11,8 +11,10 @@ import { deleteDirectoryInStorage } from '@/libs/firebase/storage'
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
+const COLLECTION_KEY = 'cars'
+
 export const carsKeys = {
-  all: ['cars'] as const,
+  all: [COLLECTION_KEY] as const,
   detail: (carId: string) => [...carsKeys.all, carId] as const
 }
 
@@ -22,11 +24,11 @@ export const useCars = () => {
 
   const { data: cars, refetch } = useSuspenseQuery({
     queryKey: carsKeys.all,
-    queryFn: () => getDocsByCollection<Car>('cars')
+    queryFn: () => getDocsByCollection<Car>(COLLECTION_KEY)
   })
 
   const createCarMutation = useMutation({
-    mutationFn: (params: CarParams) => addDocInCollection('cars', params),
+    mutationFn: (params: CarParams) => addDocInCollection(COLLECTION_KEY, params),
     onSuccess: () => {
       toast.success('차량 등록 완료')
       router.replace('/cars')
@@ -44,11 +46,11 @@ export const useCar = (id: string) => {
 
   const { data: car, refetch } = useSuspenseQuery({
     queryKey: carsKeys.detail(id),
-    queryFn: () => getDocByCollection<Car>('cars', id)
+    queryFn: () => getDocByCollection<Car>(COLLECTION_KEY, id)
   })
 
   const updateCarMutation = useMutation({
-    mutationFn: (params: Partial<CarParams>) => updateDocOnCollection('cars', id, params),
+    mutationFn: (params: Partial<CarParams>) => updateDocOnCollection(COLLECTION_KEY, id, params),
     onSuccess: () => {
       toast.success('차량 수정 완료')
       router.replace(`/cars/${id}`)
@@ -57,7 +59,7 @@ export const useCar = (id: string) => {
   })
 
   const deleteCarMutation = useMutation({
-    mutationFn: () => deleteDocOnCollection('cars', id),
+    mutationFn: () => deleteDocOnCollection(COLLECTION_KEY, id),
     onSuccess: () => {
       if (!car) return
       toast.success('차량 삭제 완료')
