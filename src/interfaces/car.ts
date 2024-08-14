@@ -1,5 +1,6 @@
-export interface Car {
-  id: string
+import { BaseDoc, OmitAutoInsertedField } from '@/interfaces/base'
+
+export interface Car extends BaseDoc {
   model: string
   color: string
   manufacturer: string
@@ -7,11 +8,9 @@ export interface Car {
   launch: string
   price: number
   imageUrl: string
-  createdAt: string
-  updatedAt?: string
   no: string
   region: string
   authorId: string
 }
 
-export type CarParams = Omit<Car, 'id' | 'createdAt' | 'updatedAt'>
+export type CarParams = OmitAutoInsertedField<Car>
