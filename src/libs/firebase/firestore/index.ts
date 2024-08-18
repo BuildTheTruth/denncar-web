@@ -15,7 +15,7 @@ import {
   updateDoc
 } from 'firebase/firestore'
 
-const firestoreDataConverter = <T extends DocumentData>() => ({
+export const firestoreDataConverter = <T extends DocumentData>() => ({
   toFirestore: (data: T) => data,
   fromFirestore: (snap: QueryDocumentSnapshot) =>
     ({

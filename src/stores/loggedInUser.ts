@@ -1,4 +1,6 @@
 import { onAuthStateChanged, signInWithGoogle, signOutWithGoogle } from '@/libs/firebase/auth'
+import { addDocInCollection, getDocByCollection } from '@/libs/firebase/firestore'
+import { getUser } from '@/libs/firebase/firestore/user'
 import { User as FirebaseUser } from 'firebase/auth'
 import { create } from 'zustand'
 
@@ -11,7 +13,18 @@ interface LoggedInUserStore {
 
 export const useLoggedInUserStore = create<LoggedInUserStore>((set) => ({
   firebaseUser: null,
-  onSubscribeAuthorization: () => onAuthStateChanged((user) => set({ firebaseUser: user })),
-  signIn: signInWithGoogle,
+  onSubscribeAuthorization: () => onAuthStateChanged((firebaseUser) => set({ firebaseUser })),
+  signIn: async () => {
+    const user = await signInWithGoogle()
+    if (!user) return
+    const registeredUser = await getUser(user.uid)
+    if (registeredUser) return
+    addDocInCollection('users', {
+      name: user.displayName,
+      uid: user.uid,
+      email: user.email,
+      numberOfCars: 0
+    })
+  },
   signOut: signOutWithGoogle
 }))
