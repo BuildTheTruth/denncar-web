@@ -6,8 +6,8 @@ import { collection, getDocs, query, where } from 'firebase/firestore'
 
 const ref = collection(db, 'users').withConverter(firestoreDataConverter<User>())
 
-export const getUser = async (uid: string) => {
+export const getUser = async (uid: string): Promise<User | null> => {
   const snapshot = await getDocs(query(ref, where('uid', '==', uid)))
   const [user] = snapshot.docs.map((doc) => doc.data())
-  return user
+  return user ?? null
 }
