@@ -6,7 +6,7 @@ export interface User extends BaseDoc {
   phoneNumber?: string
   email?: string
   kakaoId?: string
-  profileUrl?: string
+  photoURL?: string
   numberOfCars: number
 }
 

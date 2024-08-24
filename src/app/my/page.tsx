@@ -1,15 +1,13 @@
 'use client'
 
-import styled from '@emotion/styled'
+import UserForm from '@/app/my/_components/UserForm'
+import Loading from '@/components/Loading'
+import { useLoggedInUserStore } from '@/stores/loggedInUser'
 
 export default function MyPage() {
-  return <Container>MyPage</Container>
-}
+  const { me } = useLoggedInUserStore()
 
-const Container = styled.div`
-  display: flex;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-`
+  if (!me) return <Loading />
+
+  return <UserForm defaultValues={me} />
+}
