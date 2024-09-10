@@ -34,13 +34,13 @@ export const useUser = (id: string) => {
     queryFn: () => getDocByCollection<User>(COLLECTION_KEY, id)
   })
 
-  const updateCarMutation = useMutation({
+  const updateUserMutation = useMutation({
     mutationFn: (params: Partial<UserParams>) => updateDocOnCollection(COLLECTION_KEY, id, params)
   })
 
-  const deleteCarMutation = useMutation({
+  const deleteUserMutation = useMutation({
     mutationFn: () => deleteDocOnCollection(COLLECTION_KEY, id)
   })
 
-  return { user, updateCarMutation, deleteCarMutation }
+  return { user, updateUserMutation, deleteUserMutation }
 }

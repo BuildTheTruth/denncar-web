@@ -1,31 +1,25 @@
 import styled from '@emotion/styled'
 import AddIcon from '@mui/icons-material/Add'
 import { Button, IconButton } from '@mui/material'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, ReactNode } from 'react'
 
 interface Props {
-  onSelect: (files: File[]) => void
+  onClick: (files: File[]) => void
+  children: ReactNode
+  multiple?: boolean
 }
 
-export default function FileUploadButton({ onSelect }: Props) {
+export default function FileUploadButton({ onClick, children, multiple }: Props) {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
     const files = Array.from(e.target.files)
-    onSelect(files)
+    onClick(files)
   }
 
   return (
-    <Button
-      sx={{
-        width: '100%',
-        height: '100%'
-      }}
-      component="label"
-      role={undefined}
-      tabIndex={-1}
-    >
-      <AddIcon htmlColor="black" />
-      <VisuallyHiddenInput type="file" onChange={handleChange} multiple />
+    <Button sx={{ padding: 0 }} component="label" role={undefined} tabIndex={-1}>
+      {children}
+      <VisuallyHiddenInput type="file" onChange={handleChange} multiple={multiple} />
     </Button>
   )
 }

@@ -2,13 +2,13 @@ import { storage } from '@/libs/firebase'
 import { deleteObject, getDownloadURL, listAll, ref, uploadBytes } from 'firebase/storage'
 
 interface StorageFileParams {
-  carNo: string
+  id: string
   path: string
   file: File
 }
 
-const createStorageUrl = ({ path, carNo, file }: StorageFileParams) =>
-  `${path}/${carNo}/${new Date().getTime()}-${file.name}`
+const createStorageUrl = ({ path, id, file }: StorageFileParams) =>
+  `${path}/${id}/${new Date().getTime()}-${file.name}`
 
 export const uploadFileToStorage = async (params: StorageFileParams) => {
   const url = createStorageUrl(params)

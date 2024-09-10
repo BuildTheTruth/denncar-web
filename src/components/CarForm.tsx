@@ -12,6 +12,7 @@ import { Box, Button, Card, Grid, InputAdornment, TextField, Typography } from '
 import { useRouter } from 'next/navigation'
 import { HTMLInputTypeAttribute, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import AddIcon from '@mui/icons-material/Add'
 
 interface CarTextFieldProp {
   label: string
@@ -78,7 +79,7 @@ export default function CarForm({ defaultValues, onSubmit, submitButtonName }: P
     }
 
     const urls = await Promise.all(
-      imageFiles.map((file) => uploadFileToStorage({ carNo: car.no, path: 'images/cars', file }))
+      imageFiles.map((file) => uploadFileToStorage({ id: car.no, path: 'images/cars', file }))
     )
 
     const imageUrl = imageUrls.concat(urls).join(CAR_IMAGE_URL_SPLITTER)
@@ -125,7 +126,9 @@ export default function CarForm({ defaultValues, onSubmit, submitButtonName }: P
             </ImageCard>
           ))}
           <ImageCard>
-            <FileUploadButton onSelect={handleImageFilesSelect} />
+            <FileUploadButton onClick={handleImageFilesSelect} multiple>
+              <AddIcon htmlColor="black" />
+            </FileUploadButton>
           </ImageCard>
         </ImagesBox>
       </Box>
@@ -153,6 +156,8 @@ const ImagesBox = styled(Box)`
 
 const ImageCard = styled(Card)`
   display: flex;
+  justify-content: center;
+  align-items: center;
   margin-right: 8px;
   width: 160px;
   height: 160px;

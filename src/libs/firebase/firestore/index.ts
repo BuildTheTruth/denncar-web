@@ -42,7 +42,13 @@ export const getDocByCollection = async <T extends DocumentData>(path: string, i
 export const addDocInCollection = <T extends DocumentData>(path: string, data: T) =>
   addDoc(collection(db, path), { ...data, createdAt: serverTimestamp() })
 
-export const updateDocOnCollection = <T extends DocumentData>(path: string, id: string, data: T) =>
-  updateDoc(doc(db, path, id), { ...data, updatedAt: serverTimestamp() })
+/**
+ * createdAt 업데이트 제외
+ */
+export const updateDocOnCollection = <T extends DocumentData>(
+  path: string,
+  id: string,
+  { createdAt, ...data }: T
+) => updateDoc(doc(db, path, id), { ...data, updatedAt: serverTimestamp() })
 
 export const deleteDocOnCollection = (path: string, id: string) => deleteDoc(doc(db, path, id))
