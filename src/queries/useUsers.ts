@@ -41,7 +41,7 @@ export const useUser = (id = '') => {
   const updateUserMutation = useMutation({
     mutationFn: (params: Partial<UserParams>) => updateDocOnCollection(COLLECTION_KEY, id, params),
     onSuccess: () => {
-      toast.success('수정 완료')
+      toast.success('마이프로필 수정 완료')
       refetch()
     }
   })

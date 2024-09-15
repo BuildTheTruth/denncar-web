@@ -1,7 +1,7 @@
 import FileUploadButton from '@/components/FileUploadButton'
 import { User, UserParams } from '@/interfaces/user'
-import { uploadFileToStorage } from '@/libs/firebase/storage'
-import { useUser } from '@/queries/useUsers'
+import { deleteFileInStorage, uploadFileToStorage } from '@/libs/firebase/storage'
+import { extractImagePath } from '@/utils/image'
 import { getKeys } from '@/utils/keys'
 import styled from '@emotion/styled'
 import { Avatar, Box, Button, TextField, Typography } from '@mui/material'
@@ -30,7 +30,7 @@ interface Props {
 }
 
 export default function UserForm({ defaultValues, onSubmit }: Props) {
-  const { register, handleSubmit, control } = useForm<UserParams>({ defaultValues })
+  const { register, handleSubmit, setValue, control } = useForm<UserParams>({ defaultValues })
   const photoURL = useWatch({ control, name: 'photoURL' })
   const [photoFile, setPhotoFile] = useState<File | null>(null)
 
@@ -42,11 +42,19 @@ export default function UserForm({ defaultValues, onSubmit }: Props) {
     let newPhotoURL = user.photoURL
 
     if (photoFile) {
+      if (user.photoURL) {
+        const path = extractImagePath(user.photoURL)
+        deleteFileInStorage(path)
+      }
+
       newPhotoURL = await uploadFileToStorage({
         id: defaultValues.id,
         path: 'images/users',
         file: photoFile
       })
+
+      setPhotoFile(null)
+      setValue('photoURL', newPhotoURL)
     }
 
     onSubmit({ ...user, photoURL: newPhotoURL })
