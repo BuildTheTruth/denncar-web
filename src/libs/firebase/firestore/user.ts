@@ -1,19 +1,17 @@
 import { User } from '@/interfaces/user'
-import { db } from '@/libs/firebase'
-import { addDocInCollection, firestoreDataConverter } from '@/libs/firebase/firestore'
+import { getDocByCollection, setDocInCollection } from '@/libs/firebase/firestore'
 import { User as FirebaseUser } from 'firebase/auth'
-import { collection, getDocs, query, where } from 'firebase/firestore'
 
 const COLLECTION_KEY = 'users'
 
-const ref = collection(db, COLLECTION_KEY).withConverter(firestoreDataConverter<User>())
-
-export const getUser = async (uid: string): Promise<User | null> => {
-  const snapshot = await getDocs(query(ref, where('uid', '==', uid)))
-  const [user] = snapshot.docs.map((doc) => doc.data())
-  return user ?? null
-}
+export const getUser = async (uid: string): Promise<User | null> =>
+  getDocByCollection(COLLECTION_KEY, uid)
 
 export const addUser = ({ displayName, uid, email, photoURL }: FirebaseUser) => {
-  addDocInCollection(COLLECTION_KEY, { name: displayName, numberOfCars: 0, uid, email, photoURL })
+  setDocInCollection(COLLECTION_KEY, uid, {
+    name: displayName,
+    numberOfCars: 0,
+    email,
+    photoURL
+  })
 }

@@ -2,12 +2,21 @@
 
 import UserForm from '@/app/my/_components/UserForm'
 import Loading from '@/components/Loading'
+import { UserParams } from '@/interfaces/user'
+import { useUser } from '@/queries/useUsers'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 
 export default function MyPage() {
-  const { me } = useLoggedInUserStore()
+  const { firebaseUser } = useLoggedInUserStore()
+  const { user, updateUserMutation } = useUser(firebaseUser?.uid)
 
-  if (!me) return <Loading />
+  if (!user) {
+    return <Loading />
+  }
 
-  return <UserForm defaultValues={me} />
+  const handleSubmit = (params: UserParams) => {
+    updateUserMutation.mutate(params)
+  }
+
+  return <UserForm defaultValues={user} onSubmit={handleSubmit} />
 }

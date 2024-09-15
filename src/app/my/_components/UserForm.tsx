@@ -26,10 +26,10 @@ const TEXT_FIELD_PROPS_BY_FIELD_NAME: { [key in UserFieldName]: UserTextFieldPro
 
 interface Props {
   defaultValues: User
+  onSubmit: (params: UserParams) => void
 }
 
-export default function UserForm({ defaultValues }: Props) {
-  const { updateUserMutation } = useUser(defaultValues.id)
+export default function UserForm({ defaultValues, onSubmit }: Props) {
   const { register, handleSubmit, control } = useForm<UserParams>({ defaultValues })
   const photoURL = useWatch({ control, name: 'photoURL' })
   const [photoFile, setPhotoFile] = useState<File | null>(null)
@@ -43,14 +43,13 @@ export default function UserForm({ defaultValues }: Props) {
 
     if (photoFile) {
       newPhotoURL = await uploadFileToStorage({
-        id: user.uid,
+        id: defaultValues.id,
         path: 'images/users',
         file: photoFile
       })
-      setPhotoFile(null)
     }
 
-    updateUserMutation.mutate({ ...user, photoURL: newPhotoURL })
+    onSubmit({ ...user, photoURL: newPhotoURL })
   }
 
   return (

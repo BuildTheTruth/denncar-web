@@ -1,12 +1,13 @@
+import useToast from '@/hooks/useToast'
 import { User, UserParams } from '@/interfaces/user'
 import {
   addDocInCollection,
   deleteDocOnCollection,
-  getDocByCollection,
   getDocsByCollection,
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
+import { getUser } from '@/libs/firebase/firestore/user'
+import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query'
 
 const COLLECTION_KEY = 'users'
 
@@ -28,14 +29,21 @@ export const useUsers = () => {
   return { users, createUserMutation }
 }
 
-export const useUser = (id: string) => {
-  const { data: user } = useSuspenseQuery({
+export const useUser = (id = '') => {
+  const toast = useToast()
+
+  const { data: user, refetch } = useQuery({
     queryKey: usersKeys.detail(id),
-    queryFn: () => getDocByCollection<User>(COLLECTION_KEY, id)
+    queryFn: () => getUser(id),
+    enabled: !!id
   })
 
   const updateUserMutation = useMutation({
-    mutationFn: (params: Partial<UserParams>) => updateDocOnCollection(COLLECTION_KEY, id, params)
+    mutationFn: (params: Partial<UserParams>) => updateDocOnCollection(COLLECTION_KEY, id, params),
+    onSuccess: () => {
+      toast.success('수정 완료')
+      refetch()
+    }
   })
 
   const deleteUserMutation = useMutation({

@@ -1,6 +1,7 @@
 'use client'
 
 import MenuButton from '@/components/MenuButton'
+import { useUser } from '@/queries/useUsers'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import { Avatar, Box, Button } from '@mui/material'
@@ -24,6 +25,7 @@ interface Props {
 function Gnb({ children }: Props) {
   const router = useRouter()
   const { firebaseUser, onSubscribeAuthorization, signOut, signIn } = useLoggedInUserStore()
+  const { user } = useUser(firebaseUser?.uid)
 
   const handleProfileMenuOpen = () => {
     if (!firebaseUser) {
@@ -86,7 +88,7 @@ function Gnb({ children }: Props) {
           </Box>
           <Box sx={{ flexGrow: 0, display: 'flex' }}>
             <MenuButton
-              icon={<Avatar sx={{ width: 36, height: 36 }} src={firebaseUser?.photoURL ?? ''} />}
+              icon={<Avatar sx={{ width: 36, height: 36 }} src={user?.photoURL ?? ''} />}
               onBeforeOpen={handleProfileMenuOpen}
               items={profileMenuItems}
             />

@@ -12,6 +12,7 @@ import {
   orderBy,
   query,
   serverTimestamp,
+  setDoc,
   updateDoc
 } from 'firebase/firestore'
 
@@ -42,13 +43,16 @@ export const getDocByCollection = async <T extends DocumentData>(path: string, i
 export const addDocInCollection = <T extends DocumentData>(path: string, data: T) =>
   addDoc(collection(db, path), { ...data, createdAt: serverTimestamp() })
 
+export const setDocInCollection = <T extends DocumentData>(path: string, id: string, data: T) =>
+  setDoc(doc(db, path, id), { ...data, createdAt: serverTimestamp() })
+
 /**
- * createdAt 업데이트 제외
+ * id, createdAt 업데이트 제외
  */
 export const updateDocOnCollection = <T extends DocumentData>(
   path: string,
   id: string,
-  { createdAt, ...data }: T
+  { id: _id, createdAt: _createdAt, ...data }: T
 ) => updateDoc(doc(db, path, id), { ...data, updatedAt: serverTimestamp() })
 
 export const deleteDocOnCollection = (path: string, id: string) => deleteDoc(doc(db, path, id))
