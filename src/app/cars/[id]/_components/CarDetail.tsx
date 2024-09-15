@@ -81,7 +81,7 @@ export default function CarDetail({ carId }: Props) {
           >
             {imageUrls.map((imageUrl) => (
               <SwiperSlide key={imageUrl}>
-                <AutoImage src={imageUrl} />
+                <AutoImage src={imageUrl} priority />
               </SwiperSlide>
             ))}
           </Swiper>

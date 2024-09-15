@@ -1,10 +1,9 @@
 import styled from '@emotion/styled'
 import Image, { ImageProps } from 'next/image'
 
-interface Props {
+interface Props extends Omit<ImageProps, 'alt' | 'height'> {
   alt?: string
   height?: string
-  src: string
 }
 
 export default function AutoImage({ alt = '', height = 'auto', ...props }: Props) {
