@@ -16,16 +16,17 @@ import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
+import SellerCard from '@/app/cars/[id]/_components/SellerCard'
 
 interface Props {
   carId: string
 }
 
 export default function CarDetail({ carId }: Props) {
-  const { car } = useCar(carId)
+  const { car, author } = useCar(carId)
   const router = useRouter()
 
-  if (!car) {
+  if (!car || !author) {
     return notFound()
   }
 
@@ -33,7 +34,7 @@ export default function CarDetail({ carId }: Props) {
   const imageUrls = car.imageUrl.split(CAR_IMAGE_URL_SPLITTER)
   const isCreator = firebaseUser?.uid === car.authorId
 
-  const handleEditingClick = () => {
+  const handleEditClick = () => {
     router.push(`/cars/${carId}/edit`)
   }
 
@@ -71,9 +72,7 @@ export default function CarDetail({ carId }: Props) {
           <Swiper
             spaceBetween={30}
             loop={imageUrls.length > 1}
-            pagination={{
-              clickable: true
-            }}
+            pagination={{ clickable: true }}
             autoplay={{ delay: 3000 }}
             navigation={true}
             modules={[Autoplay, Pagination, Navigation]}
@@ -86,10 +85,11 @@ export default function CarDetail({ carId }: Props) {
             ))}
           </Swiper>
         </SwiperWrapper>
+        <SellerCard author={author} />
       </Box>
       {isCreator && (
         <FabWrapper>
-          <Fab sx={{ background: '#1c1c1c', marginRight: 1 }} onClick={handleEditingClick}>
+          <Fab sx={{ background: '#1c1c1c', marginRight: 1 }} onClick={handleEditClick}>
             <SettingsIcon htmlColor="white" />
           </Fab>
           <Fab color="error" onClick={handleDeleteClick}>
@@ -105,7 +105,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: 100%;
 `
 
 const CarInfoWrapper = styled.div`

@@ -111,7 +111,7 @@ const Main = styled.main`
   display: flex;
   width: 100%;
   height: 100%;
-  overflow-y: hidden;
+  overflow-y: auto;
 `
 
 export default Gnb
