@@ -1,5 +1,5 @@
 import { onAuthStateChanged, signInWithGoogle, signOutWithGoogle } from '@/libs/firebase/auth'
-import { addUser, getUser } from '@/libs/firebase/firestore/user'
+import { addUser, getUser } from '@/libs/firebase/firestore/users'
 import { User as FirebaseUser } from 'firebase/auth'
 import { create } from 'zustand'
 

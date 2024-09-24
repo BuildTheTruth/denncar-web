@@ -6,7 +6,7 @@ import {
   getDocsByCollection,
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
-import { getUser } from '@/libs/firebase/firestore/user'
+import { getUser } from '@/libs/firebase/firestore/users'
 import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query'
 
 const COLLECTION_KEY = 'users'

@@ -1,6 +1,4 @@
-import { Car } from '@/interfaces/car'
-import { getDocByCollection } from '@/libs/firebase/firestore'
-import { getUser } from '@/libs/firebase/firestore/user'
+import { getCarAndAuthor } from '@/libs/firebase/firestore/cars'
 import { carsKeys } from '@/queries/useCars'
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 import CarDetail from './_components/CarDetail'
@@ -14,12 +12,7 @@ export default async function CarPage({ params }: Props) {
 
   await queryClient.prefetchQuery({
     queryKey: carsKeys.detail(params.id),
-    queryFn: async () => {
-      const car = await getDocByCollection<Car>('cars', params.id)
-      if (!car) return { car: null, user: null }
-      const author = await getUser(car.authorId)
-      return { car, author }
-    }
+    queryFn: () => getCarAndAuthor(params.id)
   })
 
   return (
