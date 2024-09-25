@@ -1,7 +1,7 @@
 import AutoImage from '@/components/AutoImage'
 import FileUploadButton from '@/components/FileUploadButton'
 import { CarPropName } from '@/constants/car'
-import { CAR_IMAGE_URL_SPLITTER } from '@/constants/splitters'
+import { IMAGE_URL_TOKENIZER } from '@/constants/splitters'
 import { CarParams } from '@/interfaces/car'
 import { deleteFileInStorage, uploadFileToStorage } from '@/libs/firebase/storage'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
@@ -40,7 +40,7 @@ interface Props {
 }
 
 export default function CarForm({ defaultValues, onSubmit, submitButtonName }: Props) {
-  const originImageUrls = defaultValues?.imageUrl?.split(CAR_IMAGE_URL_SPLITTER) ?? []
+  const originImageUrls = defaultValues?.imageUrl?.split(IMAGE_URL_TOKENIZER) ?? []
   const router = useRouter()
   const [imageFiles, setImageFiles] = useState<File[]>([])
   const [imageUrls, setImageUrls] = useState(originImageUrls)
@@ -82,7 +82,7 @@ export default function CarForm({ defaultValues, onSubmit, submitButtonName }: P
       imageFiles.map((file) => uploadFileToStorage({ id: car.no, path: 'images/cars', file }))
     )
 
-    const imageUrl = imageUrls.concat(urls).join(CAR_IMAGE_URL_SPLITTER)
+    const imageUrl = imageUrls.concat(urls).join(IMAGE_URL_TOKENIZER)
     const authorId = firebaseUser.uid
 
     onSubmit({ ...car, imageUrl, authorId })

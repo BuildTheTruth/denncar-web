@@ -1,7 +1,7 @@
 'use client'
 
 import AutoImage from '@/components/AutoImage'
-import { CAR_IMAGE_URL_SPLITTER } from '@/constants/splitters'
+import { IMAGE_URL_TOKENIZER } from '@/constants/splitters'
 import { Car } from '@/interfaces/car'
 import { Box, Divider } from '@mui/material'
 import Card from '@mui/material/Card'
@@ -19,7 +19,7 @@ interface Props {
 
 export default function CarPost({ car }: Props) {
   const router = useRouter()
-  const imageUrls = car.imageUrl.split(CAR_IMAGE_URL_SPLITTER)
+  const imageUrls = car.imageUrl.split(IMAGE_URL_TOKENIZER)
 
   const handleCardClick = () => {
     router.push(`/cars/${car.id}`)

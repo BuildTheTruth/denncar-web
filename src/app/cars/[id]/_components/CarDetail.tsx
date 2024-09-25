@@ -1,6 +1,6 @@
 'use client'
 
-import { CAR_IMAGE_URL_SPLITTER } from '@/constants/splitters'
+import { IMAGE_URL_TOKENIZER } from '@/constants/splitters'
 import { useCar } from '@/queries/useCars'
 import styled from '@emotion/styled'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -31,7 +31,7 @@ export default function CarDetail({ carId }: Props) {
   }
 
   const { firebaseUser } = useLoggedInUserStore()
-  const imageUrls = car.imageUrl.split(CAR_IMAGE_URL_SPLITTER)
+  const imageUrls = car.imageUrl.split(IMAGE_URL_TOKENIZER)
   const isCreator = firebaseUser?.uid === car.authorId
 
   const handleEditClick = () => {

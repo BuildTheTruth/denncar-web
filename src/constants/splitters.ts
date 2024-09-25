@@ -1,1 +1,1 @@
-export const CAR_IMAGE_URL_SPLITTER = '||'
+export const IMAGE_URL_TOKENIZER = '||'
