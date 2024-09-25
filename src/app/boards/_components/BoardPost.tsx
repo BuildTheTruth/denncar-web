@@ -1,7 +1,7 @@
 'use client'
 
 import AutoImage from '@/components/AutoImage'
-import { IMAGE_URL_TOKENIZER } from '@/constants/splitters'
+import { IMAGE_URL_TOKENIZER } from '@/constants/tokenizers'
 import { Board } from '@/interfaces/board'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import Avatar from '@mui/material/Avatar'
@@ -31,7 +31,7 @@ export default function BoardPost({ board }: Props) {
         title={board.title}
         subheader={dayjs(board.createdAt).format('YYYY.MM.DD')}
       />
-      <AutoImage src={imageUrls[0]} height="194px" />
+      <AutoImage src={imageUrls[0]} height="240px" />
       <CardContent>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
           {board.description}

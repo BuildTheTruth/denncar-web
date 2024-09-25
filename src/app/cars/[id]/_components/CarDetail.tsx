@@ -1,6 +1,6 @@
 'use client'
 
-import { IMAGE_URL_TOKENIZER } from '@/constants/splitters'
+import { IMAGE_URL_TOKENIZER } from '@/constants/tokenizers'
 import { useCar } from '@/queries/useCars'
 import styled from '@emotion/styled'
 import DeleteIcon from '@mui/icons-material/Delete'

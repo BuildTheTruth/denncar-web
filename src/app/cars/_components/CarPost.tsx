@@ -1,7 +1,7 @@
 'use client'
 
 import AutoImage from '@/components/AutoImage'
-import { IMAGE_URL_TOKENIZER } from '@/constants/splitters'
+import { IMAGE_URL_TOKENIZER } from '@/constants/tokenizers'
 import { Car } from '@/interfaces/car'
 import { Box, Divider } from '@mui/material'
 import Card from '@mui/material/Card'

@@ -1,7 +1,7 @@
 import AutoImage from '@/components/AutoImage'
 import FileUploadButton from '@/components/FileUploadButton'
 import { CarPropName } from '@/constants/car'
-import { IMAGE_URL_TOKENIZER } from '@/constants/splitters'
+import { IMAGE_URL_TOKENIZER } from '@/constants/tokenizers'
 import { CarParams } from '@/interfaces/car'
 import { deleteFileInStorage, uploadFileToStorage } from '@/libs/firebase/storage'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
