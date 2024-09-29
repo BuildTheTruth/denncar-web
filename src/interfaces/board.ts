@@ -1,4 +1,4 @@
-import { BaseDoc } from '@/interfaces/base'
+import { BaseDoc, OmitAutoInsertedField } from '@/interfaces/base'
 
 export interface Board extends BaseDoc {
   authorId: string
@@ -7,3 +7,5 @@ export interface Board extends BaseDoc {
   imageUrl: string
   description: string
 }
+
+export type BoardParams = OmitAutoInsertedField<Board>

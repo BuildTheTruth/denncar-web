@@ -1,13 +1,28 @@
 'use client'
 
 import BoardPost from '@/app/boards/_components/BoardPost'
+import useToast from '@/hooks/useToast'
 import { useBoards } from '@/queries/useBoards'
+import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import AddIcon from '@mui/icons-material/Add'
 import { Box, Fab, Grid } from '@mui/material'
+import { useRouter } from 'next/navigation'
 
 export default function BoardPostList() {
+  const router = useRouter()
+  const toast = useToast()
   const { boards } = useBoards()
+
+  const { firebaseUser } = useLoggedInUserStore()
+
+  const handleBoardPostCreate = () => {
+    if (!firebaseUser) {
+      toast.error('로그인을 해주세요.')
+      return
+    }
+    router.push(`/boards/new`)
+  }
 
   return (
     <Container>
@@ -25,7 +40,7 @@ export default function BoardPostList() {
         ))}
       </Grid>
       <FabWrapper>
-        <Fab sx={{ background: '#1c1c1c' }}>
+        <Fab onClick={handleBoardPostCreate} sx={{ background: '#1c1c1c' }}>
           <AddIcon htmlColor="white" />
         </Fab>
       </FabWrapper>
