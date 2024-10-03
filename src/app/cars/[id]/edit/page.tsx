@@ -1,6 +1,6 @@
 'use client'
 
-import CarForm from '@/components/CarForm'
+import CarForm from '@/app/cars/_components/CarForm'
 import { CarParams } from '@/interfaces/car'
 import { useCar } from '@/queries/useCars'
 import { notFound } from 'next/navigation'
