@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
-import AddIcon from '@mui/icons-material/Add'
-import { Button, IconButton } from '@mui/material'
+import { Button } from '@mui/material'
 import { ChangeEvent, ReactNode } from 'react'
 
 interface Props {
@@ -17,7 +16,12 @@ export default function FileUploadButton({ onClick, children, multiple }: Props)
   }
 
   return (
-    <Button sx={{ padding: 0 }} component="label" role={undefined} tabIndex={-1}>
+    <Button
+      sx={{ padding: 0, width: '100%', height: '100%' }}
+      component="label"
+      role={undefined}
+      tabIndex={-1}
+    >
       {children}
       <VisuallyHiddenInput type="file" onChange={handleChange} multiple={multiple} />
     </Button>

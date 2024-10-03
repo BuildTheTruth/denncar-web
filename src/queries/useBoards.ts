@@ -64,6 +64,7 @@ export const useBoard = (id: string) => {
       toast.success('게시글 삭제 완료')
       router.replace('/boards')
       queryClient.invalidateQueries({ queryKey: boardsKeys.all })
+      // TODO: 게시글 삭제 시 업로드된 이미지 제거
     }
   })
 
