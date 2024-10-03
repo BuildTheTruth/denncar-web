@@ -13,10 +13,11 @@ import { User } from '@/interfaces/user'
 interface Props {
   defaultValues?: BoardParams
   author: User
+  submitButtonName: string
   onSubmit: (values: BoardParams) => void
 }
 
-export default function BoardForm({ onSubmit, author, defaultValues }: Props) {
+export default function BoardForm({ onSubmit, author, defaultValues, submitButtonName }: Props) {
   const { register, handleSubmit, setValue } = useForm<BoardParams>({ defaultValues })
   const { firebaseUser } = useLoggedInUserStore()
   const router = useRouter()
@@ -54,7 +55,7 @@ export default function BoardForm({ onSubmit, author, defaultValues }: Props) {
       <ActionsBox>
         <Button onClick={handleCancel}>취소</Button>
         <Button variant="contained" color="primary" type="submit">
-          등록
+          {submitButtonName}
         </Button>
       </ActionsBox>
     </Container>
