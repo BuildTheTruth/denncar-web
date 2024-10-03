@@ -4,7 +4,7 @@ export interface Board extends BaseDoc {
   authorId: string
   authorPhotoUrl: string
   title: string
-  imageUrl: string
+  thumnailUrl: string
   description: string
 }
 

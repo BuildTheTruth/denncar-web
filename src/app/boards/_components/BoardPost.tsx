@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function BoardPost({ board }: Props) {
-  const imageUrls = board.imageUrl.split(IMAGE_URL_TOKENIZER)
+  const imageUrls = board.thumnailUrl.split(IMAGE_URL_TOKENIZER)
 
   return (
     <Card>
@@ -31,12 +31,7 @@ export default function BoardPost({ board }: Props) {
         title={board.title}
         subheader={dayjs(board.createdAt).format('YYYY.MM.DD')}
       />
-      <AutoImage src={imageUrls[0]} height="240px" />
-      <CardContent>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {board.description}
-        </Typography>
-      </CardContent>
+      <AutoImage src={imageUrls[0]} height="240px" priority />
       {/* <CardActions disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />

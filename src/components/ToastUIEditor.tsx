@@ -6,14 +6,14 @@ import { forwardRef, MutableRefObject } from 'react'
 const DynamicEditor = dynamic(() => import('@/components/CustomEditor'), { ssr: false })
 
 interface Props {
-  value?: string
+  initialValue?: string
   authorId: string
   storageImagePath: string
   onChange?: (value: string) => void
 }
 
 const ToastUIEditor = forwardRef<Editor, Props>(
-  ({ value, authorId, storageImagePath, onChange }, ref) => {
+  ({ initialValue, authorId, storageImagePath, onChange }, ref) => {
     if (typeof window === 'undefined') {
       return null
     }
@@ -25,7 +25,7 @@ const ToastUIEditor = forwardRef<Editor, Props>(
 
     return (
       <DynamicEditor
-        initialValue={value}
+        initialValue={initialValue}
         previewStyle="vertical"
         height="100%"
         initialEditType="wysiwyg"

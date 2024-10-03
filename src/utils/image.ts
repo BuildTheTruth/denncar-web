@@ -8,3 +8,10 @@ export const extractImagePath = (url: string) => {
 
   return path
 }
+
+export const extractFirstImageUrl = (html: string) => {
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(html, 'text/html')
+  const imgTag = doc.querySelector('img')
+  return imgTag ? imgTag.getAttribute('src') : null
+}
