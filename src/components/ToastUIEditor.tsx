@@ -1,9 +1,13 @@
+import Empty from '@/components/Empty'
 import { uploadFileToStorage } from '@/libs/firebase/storage'
 import { Editor } from '@toast-ui/react-editor'
 import dynamic from 'next/dynamic'
 import { forwardRef, MutableRefObject } from 'react'
 
-const DynamicEditor = dynamic(() => import('@/components/CustomEditor'), { ssr: false })
+const DynamicEditor = dynamic(() => import('@/components/CustomEditor'), {
+  ssr: false,
+  loading: Empty
+})
 
 interface Props {
   initialValue?: string
