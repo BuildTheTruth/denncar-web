@@ -1,6 +1,5 @@
 import BoardDetail from '@/app/boards/[id]/_components/BoardDetail'
 import { getDocByCollection } from '@/libs/firebase/firestore'
-import { getCarAndAuthor } from '@/libs/firebase/firestore/cars'
 import { boardsKeys } from '@/queries/useBoards'
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 

@@ -1,5 +1,4 @@
 import Empty from '@/components/Empty'
-import { uploadFileToStorage } from '@/libs/firebase/storage'
 import { Editor } from '@toast-ui/react-editor'
 import dynamic from 'next/dynamic'
 import { forwardRef, MutableRefObject } from 'react'
@@ -11,19 +10,19 @@ const DynamicEditor = dynamic(() => import('@/components/CustomEditor'), {
 
 interface Props {
   initialValue?: string
-  authorId: string
-  storageImagePath: string
   onChange?: (value: string) => void
+  onImageInsert?: (url: string, file: File) => void
 }
 
 const ToastUIEditor = forwardRef<Editor, Props>(
-  ({ initialValue, authorId, storageImagePath, onChange }, ref) => {
+  ({ initialValue, onChange, onImageInsert }, ref) => {
     if (typeof window === 'undefined') {
       return null
     }
 
     const addImageBlobHook = async (file: File, callback: (url: string, text: string) => void) => {
-      const url = await uploadFileToStorage({ id: authorId, path: storageImagePath, file })
+      const url = URL.createObjectURL(file)
+      onImageInsert?.(url, file)
       callback(url, file.name)
     }
 

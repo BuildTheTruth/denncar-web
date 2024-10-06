@@ -7,3 +7,5 @@ export interface BaseDoc {
 }
 
 export type OmitAutoInsertedField<T> = Omit<T, AutoInsertedField>
+
+export type WithId<T> = T & { id: string }

@@ -2,6 +2,7 @@
 
 import BoardForm from '@/app/boards/_components/BoardForm'
 import Loading from '@/components/Loading'
+import { WithId } from '@/interfaces/base'
 import { BoardParams } from '@/interfaces/board'
 import { useBoards } from '@/queries/useBoards'
 import { useUser } from '@/queries/useUsers'
@@ -16,7 +17,7 @@ export default function NewBoardPage() {
     return <Loading />
   }
 
-  const handleSubmit = (params: BoardParams) => {
+  const handleSubmit = (params: WithId<BoardParams>) => {
     createBoardMutation.mutate(params)
   }
 

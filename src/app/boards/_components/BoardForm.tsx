@@ -1,35 +1,54 @@
-import { BoardParams } from '@/interfaces/board'
+import { Board, BoardParams } from '@/interfaces/board'
 import styled from '@emotion/styled'
 import { Box, Button, TextField } from '@mui/material'
 import { useForm } from 'react-hook-form'
 
-import { useLoggedInUserStore } from '@/stores/loggedInUser'
-import Loading from '@/components/Loading'
 import ToastUIEditor from '@/components/ToastUIEditor'
-import { useRouter } from 'next/navigation'
-import { extractFirstImageUrl } from '@/utils/image'
+import { WithId } from '@/interfaces/base'
 import { User } from '@/interfaces/user'
+import { uploadFileToStorage } from '@/libs/firebase/storage'
+import { extractFirstImageUrl } from '@/utils/image'
+import { useRouter } from 'next/navigation'
+import { useMemo } from 'react'
+import { v6 as uuid } from 'uuid'
 
 interface Props {
-  defaultValues?: BoardParams
+  defaultValues?: Board
   author: User
   submitButtonName: string
-  onSubmit: (values: BoardParams) => void
+  onSubmit: (values: WithId<BoardParams>) => void
 }
 
 export default function BoardForm({ onSubmit, author, defaultValues, submitButtonName }: Props) {
   const { register, handleSubmit, setValue } = useForm<BoardParams>({ defaultValues })
-  const { firebaseUser } = useLoggedInUserStore()
   const router = useRouter()
-
-  if (!firebaseUser) {
-    return <Loading />
-  }
+  const imageFileByUrl = useMemo<{ [url: string]: File }>(() => ({}), [])
 
   const interceptSubmit = async (board: BoardParams) => {
+    const boardId = defaultValues?.id ?? uuid()
+    const localImageUrls = Object.keys(imageFileByUrl)
+    let description = board.description
+
+    if (localImageUrls.length > 0) {
+      const promisedUploadedUrls = localImageUrls.map((url) =>
+        uploadFileToStorage({
+          id: boardId,
+          path: `images/boards`,
+          file: imageFileByUrl[url]
+        })
+      )
+      const uploadedUrls = await Promise.all(promisedUploadedUrls)
+
+      for (let i = 0; i < localImageUrls.length; i++) {
+        description = description.replace(localImageUrls[i], uploadedUrls[i])
+      }
+    }
+
     onSubmit({
       ...board,
-      thumnailUrl: extractFirstImageUrl(board.description) ?? '',
+      id: boardId,
+      description,
+      thumnailUrl: extractFirstImageUrl(description) ?? '',
       authorId: author.id,
       authorPhotoUrl: author.photoURL ?? ''
     })
@@ -43,14 +62,17 @@ export default function BoardForm({ onSubmit, author, defaultValues, submitButto
     router.back()
   }
 
+  const handleImageInsert = (url: string, file: File) => {
+    imageFileByUrl[url] = file
+  }
+
   return (
     <Container component="form" onSubmit={handleSubmit(interceptSubmit)}>
       <TextField {...register('title')} label="제목" fullWidth sx={{ marginBottom: 2 }} />
       <ToastUIEditor
         initialValue={defaultValues?.description}
-        authorId={firebaseUser.uid}
-        storageImagePath="images/boards"
         onChange={handleEditorChange}
+        onImageInsert={handleImageInsert}
       />
       <ActionsBox>
         <Button onClick={handleCancel}>취소</Button>

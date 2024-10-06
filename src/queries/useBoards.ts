@@ -1,9 +1,10 @@
 import useToast from '@/hooks/useToast'
+import { WithId } from '@/interfaces/base'
 import { Board, BoardParams } from '@/interfaces/board'
 import {
-  addDocInCollection,
   deleteDocOnCollection,
   getDocsByCollection,
+  setDocInCollection,
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
 import { getBoard } from '@/libs/firebase/firestore/board'
@@ -27,7 +28,8 @@ export const useBoards = () => {
   })
 
   const createBoardMutation = useMutation({
-    mutationFn: (params: BoardParams) => addDocInCollection(COLLECTION_KEY, params),
+    mutationFn: ({ id, ...params }: WithId<BoardParams>) =>
+      setDocInCollection(COLLECTION_KEY, id, params),
     onSuccess: () => {
       toast.success('게시판 등록 완료')
       router.replace('/boards')
