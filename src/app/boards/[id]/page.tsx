@@ -1,5 +1,5 @@
 import BoardDetail from '@/app/boards/[id]/_components/BoardDetail'
-import { getDocByCollection } from '@/libs/firebase/firestore'
+import { getBoard } from '@/libs/firebase/firestore/board'
 import { boardsKeys } from '@/queries/useBoards'
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
@@ -12,7 +12,7 @@ export default async function BoardPage({ params }: Props) {
 
   await queryClient.prefetchQuery({
     queryKey: boardsKeys.detail(params.id),
-    queryFn: () => getDocByCollection('boards', params.id)
+    queryFn: () => getBoard(params.id)
   })
 
   return (

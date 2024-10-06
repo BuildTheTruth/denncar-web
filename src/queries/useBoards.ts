@@ -53,7 +53,7 @@ export const useBoard = (id: string) => {
   const updateBoardMutation = useMutation({
     mutationFn: (params: Partial<BoardParams>) => updateDocOnCollection(COLLECTION_KEY, id, params),
     onSuccess: () => {
-      toast.success('게시글 등록 완료')
+      toast.success('게시글 수정 완료')
       router.replace(`/boards/${id}`)
       refetch()
     }
