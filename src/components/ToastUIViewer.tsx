@@ -1,5 +1,3 @@
-'use client'
-
 import Empty from '@/components/Empty'
 import { Viewer, ViewerProps } from '@toast-ui/react-editor'
 import dynamic from 'next/dynamic'

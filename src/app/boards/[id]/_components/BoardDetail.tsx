@@ -35,12 +35,12 @@ export default function BoardDetail({ boardId }: Props) {
 
   return (
     <Container>
-      <Box>
+      <ContentsWarpper>
         <Typography variant="h2" fontWeight={600}>
           {board.title}
         </Typography>
         <ToastUIViewer initialValue={board.description} />
-      </Box>
+      </ContentsWarpper>
       {isCreator && (
         <FabWrapper>
           <Fab sx={{ background: '#1c1c1c', marginRight: 1 }} onClick={handleEditClick}>
@@ -58,6 +58,14 @@ export default function BoardDetail({ boardId }: Props) {
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  width: 100%;
+`
+
+const ContentsWarpper = styled(Box)`
+  padding: 16px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
   width: 100%;
 `
 
