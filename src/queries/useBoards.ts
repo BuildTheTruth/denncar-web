@@ -46,7 +46,7 @@ export const useBoard = (id: string) => {
   const router = useRouter()
   const queryClient = useQueryClient()
 
-  const { data: board, refetch } = useSuspenseQuery({
+  const { data: board } = useSuspenseQuery({
     queryKey: boardsKeys.detail(id),
     queryFn: () => getBoard(id)
   })
@@ -56,7 +56,7 @@ export const useBoard = (id: string) => {
     onSuccess: () => {
       toast.success('게시글 수정 완료')
       router.replace(`/boards/${id}`)
-      refetch()
+      queryClient.invalidateQueries({ queryKey: boardsKeys.all })
     }
   })
 
