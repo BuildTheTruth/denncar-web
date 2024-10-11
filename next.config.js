@@ -9,6 +9,15 @@ const nextConfig = {
         port: ''
       }
     ]
+  },
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/cars',
+        permanent: true
+      }
+    ]
   }
 }
 
