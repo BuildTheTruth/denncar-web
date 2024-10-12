@@ -7,7 +7,7 @@ import {
   getDocsByCollection,
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
-import { getCarAndAuthor } from '@/libs/firebase/firestore/cars'
+import { getCarWithAuthor } from '@/libs/firebase/firestore/cars'
 import { getUser } from '@/libs/firebase/firestore/users'
 import { deleteDirectoryInStorage } from '@/libs/firebase/storage'
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
@@ -51,7 +51,7 @@ export const useCar = (id: string) => {
     refetch
   } = useSuspenseQuery({
     queryKey: carsKeys.detail(id),
-    queryFn: () => getCarAndAuthor(id)
+    queryFn: () => getCarWithAuthor(id)
   })
 
   const updateCarMutation = useMutation({
