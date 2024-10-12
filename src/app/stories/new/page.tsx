@@ -5,7 +5,7 @@ import Loading from '@/components/Loading'
 import { WithId } from '@/interfaces/base'
 import { StoryParams } from '@/interfaces/story'
 import { useStories } from '@/queries/useStories'
-import { useUser } from '@/queries/useUsers'
+import { useUser } from '@/queries/users'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 
 export default function NewStoryPage() {

@@ -3,7 +3,7 @@
 import StoryForm from '@/app/stories/_components/StoryForm'
 import { StoryParams } from '@/interfaces/story'
 import { useStory } from '@/queries/useStories'
-import { useUser } from '@/queries/useUsers'
+import { useUser } from '@/queries/users'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import { notFound } from 'next/navigation'
 

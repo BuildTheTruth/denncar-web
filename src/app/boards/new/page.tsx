@@ -5,7 +5,7 @@ import Loading from '@/components/Loading'
 import { WithId } from '@/interfaces/base'
 import { BoardParams } from '@/interfaces/board'
 import { useBoards } from '@/queries/useBoards'
-import { useUser } from '@/queries/useUsers'
+import { useUser } from '@/queries/users'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 
 export default function NewBoardPage() {

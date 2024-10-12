@@ -1,7 +1,7 @@
 'use client'
 
 import MenuButton from '@/components/MenuButton'
-import { useUser } from '@/queries/useUsers'
+import { useUser } from '@/queries/users'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import { Avatar, Box, Button } from '@mui/material'

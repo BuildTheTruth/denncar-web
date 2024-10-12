@@ -3,7 +3,7 @@
 import BoardForm from '@/app/boards/_components/BoardForm'
 import { BoardParams } from '@/interfaces/board'
 import { useBoard } from '@/queries/useBoards'
-import { useUser } from '@/queries/useUsers'
+import { useUser } from '@/queries/users'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import { notFound } from 'next/navigation'
 
