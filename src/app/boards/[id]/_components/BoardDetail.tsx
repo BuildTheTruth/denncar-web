@@ -63,7 +63,6 @@ const Container = styled.div`
 
 const ContentsWarpper = styled(Box)`
   padding: 16px;
-  overflow: auto;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -71,7 +70,7 @@ const ContentsWarpper = styled(Box)`
 
 const FabWrapper = styled(Box)`
   display: flex;
-  position: absolute;
+  position: fixed;
   right: 16px;
   bottom: 16px;
 `

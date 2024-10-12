@@ -148,7 +148,7 @@ const SwiperWrapper = styled.div`
 
 const FabWrapper = styled(Box)`
   display: flex;
-  position: absolute;
+  position: fixed;
   right: 16px;
   bottom: 16px;
 `

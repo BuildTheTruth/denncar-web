@@ -26,7 +26,7 @@ export default function CarPostList() {
   return (
     <Container>
       <Grid
-        sx={{ height: '100%', overflowY: 'auto' }}
+        sx={{ height: '100%' }}
         container
         padding={2}
         spacing={2}
@@ -55,7 +55,7 @@ const Container = styled.div`
 
 const FabWrapper = styled(Box)`
   display: flex;
-  position: absolute;
+  position: fixed;
   right: 16px;
   bottom: 16px;
 `
