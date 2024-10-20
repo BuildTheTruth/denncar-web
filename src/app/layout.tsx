@@ -13,15 +13,19 @@ import MUIThemeProvider from '@/providers/MUIThemeProvider'
 import ReactQueryClientProvider from '@/providers/ReactQueryClientProvider'
 import ToastProvider from '@/providers/ToastProvider'
 import type { Metadata } from 'next'
+import { DENNCAR_PRESENT_IMAGE_URL } from '@/constants/urls'
 
 export const metadata: Metadata = {
-  title: '덴카'
+  title: '덴카',
+  description: '모두의 중고차 커뮤니티'
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <head></head>
+      <head>
+        <meta property="og:image" content={DENNCAR_PRESENT_IMAGE_URL} />
+      </head>
       <body>
         <ReactQueryClientProvider>
           <MUIThemeProvider>
