@@ -3,14 +3,12 @@ import type { Car, CarParams } from '@/interfaces/car'
 import {
   addDocInCollection,
   deleteDocOnCollection,
-  getDocByCollection,
   getDocsByCollection,
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
 import { getCarWithAuthor } from '@/libs/firebase/firestore/cars'
-import { getUser } from '@/libs/firebase/firestore/users'
 import { deleteDirectoryInStorage } from '@/libs/firebase/storage'
-import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
+import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
 const COLLECTION_KEY = 'cars'
@@ -20,14 +18,23 @@ export const carsKeys = {
   detail: (carId: string) => [...carsKeys.all, carId] as const
 }
 
+export const carsQueryOptions = () =>
+  queryOptions({
+    queryKey: carsKeys.all,
+    queryFn: () => getDocsByCollection<Car>(COLLECTION_KEY)
+  })
+
+export const carQueryOptions = (id: string) =>
+  queryOptions({
+    queryKey: carsKeys.detail(id),
+    queryFn: () => getCarWithAuthor(id)
+  })
+
 export const useCars = () => {
   const toast = useToast()
   const router = useRouter()
 
-  const { data: cars, refetch } = useSuspenseQuery({
-    queryKey: carsKeys.all,
-    queryFn: () => getDocsByCollection<Car>(COLLECTION_KEY)
-  })
+  const { data: cars, refetch } = useSuspenseQuery(carsQueryOptions())
 
   const createCarMutation = useMutation({
     mutationFn: (params: CarParams) => addDocInCollection(COLLECTION_KEY, params),
@@ -49,10 +56,7 @@ export const useCar = (id: string) => {
   const {
     data: { car, author },
     refetch
-  } = useSuspenseQuery({
-    queryKey: carsKeys.detail(id),
-    queryFn: () => getCarWithAuthor(id)
-  })
+  } = useSuspenseQuery(carQueryOptions(id))
 
   const updateCarMutation = useMutation({
     mutationFn: (params: Partial<CarParams>) => updateDocOnCollection(COLLECTION_KEY, id, params),
