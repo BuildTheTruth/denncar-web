@@ -1,6 +1,5 @@
 import StoryDetail from '@/app/stories/[id]/_components/StoryDetail'
-import { getStory } from '@/libs/firebase/firestore/story'
-import { storiesKeys } from '@/queries/useStories'
+import { storyQueryOptions } from '@/queries/useStories'
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
 interface Props {
@@ -9,11 +8,7 @@ interface Props {
 
 export default async function StoryPage({ params }: Props) {
   const queryClient = new QueryClient()
-
-  await queryClient.prefetchQuery({
-    queryKey: storiesKeys.detail(params.id),
-    queryFn: () => getStory(params.id)
-  })
+  await queryClient.prefetchQuery(storyQueryOptions(params.id))
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
