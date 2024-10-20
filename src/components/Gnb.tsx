@@ -9,8 +9,8 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-import { ReactNode, useEffect } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { ReactNode, useCallback, useEffect, useState } from 'react'
 
 const pages = [
   { id: 'boards', label: '자유게시판' },
@@ -26,6 +26,12 @@ function Gnb({ children }: Props) {
   const router = useRouter()
   const { firebaseUser, onSubscribeAuthorization, signOut, signIn } = useLoggedInUserStore()
   const { user } = useUser(firebaseUser?.uid)
+  const pathname = usePathname()
+
+  const isCurrentPage = useCallback(
+    (pageId: string) => new RegExp(`^/${pageId}`).test(pathname),
+    [pathname]
+  )
 
   const handleProfileMenuOpen = () => {
     if (!firebaseUser) {
@@ -79,7 +85,11 @@ function Gnb({ children }: Props) {
             {pages.map((page) => (
               <Button
                 key={page.id}
-                sx={{ color: 'white', mx: 1 }}
+                sx={{
+                  color: 'white',
+                  mx: 1,
+                  borderBottom: isCurrentPage(page.id) ? '1px solid white' : ''
+                }}
                 onClick={() => router.push(`/${page.id}`)}
               >
                 {page.label}
