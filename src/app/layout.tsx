@@ -8,10 +8,11 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import './globals.css'
 
-import type { Metadata } from 'next'
 import Gnb from '@/components/Gnb'
+import MUIThemeProvider from '@/providers/MUIThemeProvider'
 import ReactQueryClientProvider from '@/providers/ReactQueryClientProvider'
 import ToastProvider from '@/providers/ToastProvider'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: '덴카'
@@ -23,9 +24,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head></head>
       <body>
         <ReactQueryClientProvider>
-          <ToastProvider>
-            <Gnb>{children}</Gnb>
-          </ToastProvider>
+          <MUIThemeProvider>
+            <ToastProvider>
+              <Gnb>{children}</Gnb>
+            </ToastProvider>
+          </MUIThemeProvider>
         </ReactQueryClientProvider>
       </body>
     </html>

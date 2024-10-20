@@ -6,7 +6,8 @@ import { useBoards } from '@/libs/tanstack/queries/boards'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import AddIcon from '@mui/icons-material/Add'
-import { Box, Fab, Grid } from '@mui/material'
+import { Box, Fab } from '@mui/material'
+import Grid from '@mui/material/Grid2'
 import { useRouter } from 'next/navigation'
 
 export default function BoardPostList() {
@@ -27,14 +28,14 @@ export default function BoardPostList() {
   return (
     <Container>
       <Grid
-        sx={{ height: '100%' }}
         container
         padding={2}
         spacing={2}
-        columns={{ xs: 1, sm: 4, md: 8 }}
+        sx={{ width: '100%' }}
+        columns={{ xs: 2, sm: 4, md: 8, lg: 10, xl: 12, xxl: 16 }}
       >
         {boards.map((board) => (
-          <Grid xs={1} sm={2} md={2} item key={board.id}>
+          <Grid key={board.id} size={2}>
             <BoardPost board={board} />
           </Grid>
         ))}
