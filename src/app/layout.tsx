@@ -1,6 +1,7 @@
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css'
 import '@toast-ui/editor/dist/toastui-editor.css'
 import 'tui-color-picker/dist/tui-color-picker.css'
+import 'react-image-lightbox/style.css'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'

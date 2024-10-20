@@ -1,22 +1,23 @@
 'use client'
 
+import SellerCard from '@/app/cars/[id]/_components/SellerCard'
+import AutoImage from '@/components/AutoImage'
+import PhotoViewer from '@/components/PhotoViewer'
 import { IMAGE_URL_TOKENIZER } from '@/constants/tokenizers'
 import { useCar } from '@/libs/tanstack/queries/cars'
+import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import DeleteIcon from '@mui/icons-material/Delete'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { Box, Divider, Fab, Typography } from '@mui/material'
 import { notFound, useRouter } from 'next/navigation'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { useState } from 'react'
 
-import { Autoplay, Navigation, Pagination } from 'swiper/modules'
-
-import AutoImage from '@/components/AutoImage'
-import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import SellerCard from '@/app/cars/[id]/_components/SellerCard'
+import { Autoplay, Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 interface Props {
   carId: string
@@ -30,6 +31,7 @@ export default function CarDetail({ carId }: Props) {
     return notFound()
   }
 
+  const [currentImageIndex, setCurrentImageIndex] = useState(-1)
   const { firebaseUser } = useLoggedInUserStore()
   const imageUrls = car.imageUrl.split(IMAGE_URL_TOKENIZER)
   const isCreator = firebaseUser?.uid === car.authorId
@@ -78,9 +80,9 @@ export default function CarDetail({ carId }: Props) {
             modules={[Autoplay, Pagination, Navigation]}
             className="mySwiper"
           >
-            {imageUrls.map((imageUrl) => (
+            {imageUrls.map((imageUrl, index) => (
               <SwiperSlide key={imageUrl}>
-                <AutoImage src={imageUrl} priority />
+                <AutoImage src={imageUrl} priority onClick={() => setCurrentImageIndex(index)} />
               </SwiperSlide>
             ))}
           </Swiper>
@@ -96,6 +98,13 @@ export default function CarDetail({ carId }: Props) {
             <DeleteIcon htmlColor="white" />
           </Fab>
         </FabWrapper>
+      )}
+      {currentImageIndex > -1 && (
+        <PhotoViewer
+          startIndex={currentImageIndex}
+          srcs={imageUrls}
+          onClose={() => setCurrentImageIndex(-1)}
+        />
       )}
     </Container>
   )
