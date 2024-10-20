@@ -1,6 +1,6 @@
 'use client'
 
-import { useCar } from '@/queries/useCars'
+import { useCar } from '@/libs/tanstack/queries/cars'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'

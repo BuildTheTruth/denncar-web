@@ -1,7 +1,7 @@
 'use client'
 
 import { IMAGE_URL_TOKENIZER } from '@/constants/tokenizers'
-import { useCar } from '@/queries/useCars'
+import { useCar } from '@/libs/tanstack/queries/cars'
 import styled from '@emotion/styled'
 import DeleteIcon from '@mui/icons-material/Delete'
 import SettingsIcon from '@mui/icons-material/Settings'

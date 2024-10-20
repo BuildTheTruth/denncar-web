@@ -2,7 +2,7 @@
 
 import CarForm from '@/app/cars/_components/CarForm'
 import { CarParams } from '@/interfaces/car'
-import { useCar } from '@/queries/useCars'
+import { useCar } from '@/libs/tanstack/queries/cars'
 import { notFound } from 'next/navigation'
 
 interface Props {

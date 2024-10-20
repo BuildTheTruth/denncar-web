@@ -1,7 +1,7 @@
 'use client'
 
 import ToastUIViewer from '@/components/ToastUIViewer'
-import { useStory } from '@/queries/useStories'
+import { useStory } from '@/libs/tanstack/queries/stories'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import { Box, Fab, Typography } from '@mui/material'

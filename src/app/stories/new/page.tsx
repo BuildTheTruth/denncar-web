@@ -4,8 +4,8 @@ import StoryForm from '@/app/stories/_components/StoryForm'
 import Loading from '@/components/Loading'
 import { WithId } from '@/interfaces/base'
 import { StoryParams } from '@/interfaces/story'
-import { useStories } from '@/queries/useStories'
-import { useUser } from '@/queries/users'
+import { useStories } from '@/libs/tanstack/queries/stories'
+import { useUser } from '@/libs/tanstack/queries/users'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 
 export default function NewStoryPage() {

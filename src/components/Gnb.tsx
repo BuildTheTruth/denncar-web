@@ -1,7 +1,7 @@
 'use client'
 
 import MenuButton from '@/components/MenuButton'
-import { useUser } from '@/queries/users'
+import { useUser } from '@/libs/tanstack/queries/users'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import { Avatar, Box, Button } from '@mui/material'

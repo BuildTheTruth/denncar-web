@@ -1,5 +1,5 @@
 import BoardPostList from '@/app/boards/_components/BoardPostList'
-import { boardsQueryOptions } from '@/queries/useBoards'
+import { boardsQueryOptions } from '@/libs/tanstack/options/boards'
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
 export default async function BoardsPage() {

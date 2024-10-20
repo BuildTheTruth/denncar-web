@@ -1,40 +1,25 @@
 import useToast from '@/hooks/useToast'
 import { WithId } from '@/interfaces/base'
-import { Story, StoryParams } from '@/interfaces/story'
+import { StoryParams } from '@/interfaces/story'
 import {
   deleteDocOnCollection,
-  getDocsByCollection,
   setDocInCollection,
   updateDocOnCollection
 } from '@/libs/firebase/firestore'
-import { getStory } from '@/libs/firebase/firestore/story'
 import { deleteDirectoryInStorage } from '@/libs/firebase/storage'
-import { queryOptions, useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
+import {
+  storiesKeys,
+  storiesQueryOptions,
+  storyQueryOptions
+} from '@/libs/tanstack/options/stories'
+import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
 const COLLECTION_KEY = 'stories'
 
-export const storiesKeys = {
-  all: [COLLECTION_KEY] as const,
-  detail: (storyId: string) => [...storiesKeys.all, storyId] as const
-}
-
-export const storiesQueryOptions = () =>
-  queryOptions({
-    queryKey: storiesKeys.all,
-    queryFn: () => getDocsByCollection<Story>(COLLECTION_KEY)
-  })
-
-export const storyQueryOptions = (id: string) =>
-  queryOptions({
-    queryKey: storiesKeys.detail(id),
-    queryFn: () => getStory(id)
-  })
-
 export const useStories = () => {
   const toast = useToast()
   const router = useRouter()
-
   const { data: stories, refetch } = useSuspenseQuery(storiesQueryOptions())
 
   const createStoryMutation = useMutation({

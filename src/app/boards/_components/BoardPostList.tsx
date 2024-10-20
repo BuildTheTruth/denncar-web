@@ -2,7 +2,7 @@
 
 import BoardPost from '@/app/boards/_components/BoardPost'
 import useToast from '@/hooks/useToast'
-import { useBoards } from '@/queries/useBoards'
+import { useBoards } from '@/libs/tanstack/queries/boards'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import AddIcon from '@mui/icons-material/Add'

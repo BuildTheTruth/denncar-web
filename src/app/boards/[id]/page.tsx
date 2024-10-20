@@ -1,5 +1,5 @@
 import BoardDetail from '@/app/boards/[id]/_components/BoardDetail'
-import { boardQueryOptions } from '@/queries/useBoards'
+import { boardQueryOptions } from '@/libs/tanstack/options/boards'
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
 interface Props {

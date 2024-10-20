@@ -1,6 +1,6 @@
 'use client'
 
-import { useBoard } from '@/queries/useBoards'
+import { useBoard } from '@/libs/tanstack/queries/boards'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import DialogActions from '@mui/material/DialogActions'

@@ -2,7 +2,7 @@
 
 import CarPost from '@/app/cars/_components/CarPost'
 import useToast from '@/hooks/useToast'
-import { useCars } from '@/queries/useCars'
+import { useCars } from '@/libs/tanstack/queries/cars'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import AddIcon from '@mui/icons-material/Add'

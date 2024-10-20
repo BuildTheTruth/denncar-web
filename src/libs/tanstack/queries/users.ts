@@ -1,35 +1,16 @@
 import useToast from '@/hooks/useToast'
 import { UserParams } from '@/interfaces/user'
-import { deleteUser, getUser, getUsers, updateUser } from '@/libs/firebase/firestore/users'
-import { queryOptions, useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query'
-
-export const usersKeys = {
-  all: ['users'] as const,
-  detail: (userId: string) => [...usersKeys.all, userId] as const
-}
-
-export const usersQueryOptions = () =>
-  queryOptions({
-    queryKey: usersKeys.all,
-    queryFn: () => getUsers()
-  })
-
-export const userQueryOptions = (id: string) =>
-  queryOptions({
-    queryKey: usersKeys.detail(id),
-    queryFn: () => getUser(id),
-    enabled: !!id
-  })
+import { deleteUser, updateUser } from '@/libs/firebase/firestore/users'
+import { userQueryOptions, usersQueryOptions } from '@/libs/tanstack/options/users'
+import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query'
 
 export const useUsers = () => {
   const { data: users } = useSuspenseQuery(usersQueryOptions())
-
   return { users }
 }
 
 export const useUser = (id = '') => {
   const toast = useToast()
-
   const { data: user, refetch } = useQuery(userQueryOptions(id))
 
   const updateUserMutation = useMutation({

@@ -3,7 +3,7 @@
 import UserForm from '@/app/my/_components/UserForm'
 import Loading from '@/components/Loading'
 import { UserParams } from '@/interfaces/user'
-import { useUser } from '@/queries/users'
+import { useUser } from '@/libs/tanstack/queries/users'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 
 export default function MyPage() {

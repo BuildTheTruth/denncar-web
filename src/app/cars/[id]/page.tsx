@@ -1,4 +1,4 @@
-import { carQueryOptions } from '@/queries/useCars'
+import { carQueryOptions } from '@/libs/tanstack/options/cars'
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 import CarDetail from './_components/CarDetail'
 

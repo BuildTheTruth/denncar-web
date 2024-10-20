@@ -1,5 +1,5 @@
 import StoryDetail from '@/app/stories/[id]/_components/StoryDetail'
-import { storyQueryOptions } from '@/queries/useStories'
+import { storyQueryOptions } from '@/libs/tanstack/options/stories'
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
 interface Props {

@@ -2,8 +2,8 @@
 
 import BoardForm from '@/app/boards/_components/BoardForm'
 import { BoardParams } from '@/interfaces/board'
-import { useBoard } from '@/queries/useBoards'
-import { useUser } from '@/queries/users'
+import { useBoard } from '@/libs/tanstack/queries/boards'
+import { useUser } from '@/libs/tanstack/queries/users'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import { notFound } from 'next/navigation'
 

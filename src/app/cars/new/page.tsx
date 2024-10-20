@@ -2,7 +2,7 @@
 
 import CarForm from '@/app/cars/_components/CarForm'
 import { CarParams } from '@/interfaces/car'
-import { useCars } from '@/queries/useCars'
+import { useCars } from '@/libs/tanstack/queries/cars'
 
 export default function NewCarPage() {
   const { createCarMutation } = useCars()

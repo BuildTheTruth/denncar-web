@@ -2,7 +2,7 @@
 
 import StoryPost from '@/app/stories/_components/StoryPost'
 import useToast from '@/hooks/useToast'
-import { useStories } from '@/queries/useStories'
+import { useStories } from '@/libs/tanstack/queries/stories'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import styled from '@emotion/styled'
 import AddIcon from '@mui/icons-material/Add'

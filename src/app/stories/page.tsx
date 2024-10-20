@@ -1,5 +1,5 @@
 import StoryPostList from '@/app/stories/_components/StoryPostList'
-import { storiesQueryOptions } from '@/queries/useStories'
+import { storiesQueryOptions } from '@/libs/tanstack/options/stories'
 import { HydrationBoundary, QueryClient, dehydrate } from '@tanstack/react-query'
 
 export default async function StoriesPage() {

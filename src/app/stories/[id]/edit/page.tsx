@@ -2,8 +2,8 @@
 
 import StoryForm from '@/app/stories/_components/StoryForm'
 import { StoryParams } from '@/interfaces/story'
-import { useStory } from '@/queries/useStories'
-import { useUser } from '@/queries/users'
+import { useStory } from '@/libs/tanstack/queries/stories'
+import { useUser } from '@/libs/tanstack/queries/users'
 import { useLoggedInUserStore } from '@/stores/loggedInUser'
 import { notFound } from 'next/navigation'
 
