@@ -28,9 +28,6 @@ export default function SellerCard({ author }: Props) {
               <EmailIcon sx={{ mr: 1 }} /> {author.email}
             </UserInfoColumn>
             <UserInfoColumn>
-              <PhoneIcon sx={{ mr: 1 }} /> {author.phoneNumber}
-            </UserInfoColumn>
-            <UserInfoColumn>
               <KakaoIcon width={24} height={24} alt="kakao-icon" src="/kakaotalk.svg" />{' '}
               {author.kakaoId}
             </UserInfoColumn>
