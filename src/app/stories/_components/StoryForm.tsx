@@ -67,7 +67,7 @@ export default function StoryForm({ onSubmit, author, defaultValues, submitButto
   }
 
   return (
-    <Container component="form" onSubmit={handleSubmit(interceptSubmit)}>
+    <Container onSubmit={handleSubmit(interceptSubmit)}>
       <TextField {...register('title')} label="제목" fullWidth sx={{ marginBottom: 2 }} />
       <ToastUIEditor
         initialValue={defaultValues?.description}
@@ -84,7 +84,7 @@ export default function StoryForm({ onSubmit, author, defaultValues, submitButto
   )
 }
 
-const Container = styled(Box)`
+const Container = styled.form`
   display: flex;
   flex-direction: column;
   margin: 16px;

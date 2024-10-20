@@ -89,7 +89,7 @@ export default function CarForm({ defaultValues, onSubmit, submitButtonName }: P
   }
 
   return (
-    <Container component="form" onSubmit={handleSubmit(interceptSubmit)}>
+    <Container onSubmit={handleSubmit(interceptSubmit)}>
       <Box sx={{ flex: 1 }}>
         <Typography variant="h6">차량 정보</Typography>
         <Grid container spacing={1} columns={3}>
@@ -142,7 +142,7 @@ export default function CarForm({ defaultValues, onSubmit, submitButtonName }: P
   )
 }
 
-const Container = styled(Box)`
+const Container = styled.form`
   display: flex;
   flex-direction: column;
   margin: 16px;

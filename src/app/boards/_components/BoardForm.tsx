@@ -1,7 +1,7 @@
 import { Board, BoardParams } from '@/interfaces/board'
 import styled from '@emotion/styled'
 import { Box, Button, TextField } from '@mui/material'
-import { useForm } from 'react-hook-form'
+import { Form, useForm } from 'react-hook-form'
 
 import ToastUIEditor from '@/components/ToastUIEditor'
 import { WithId } from '@/interfaces/base'
@@ -67,7 +67,7 @@ export default function BoardForm({ onSubmit, author, defaultValues, submitButto
   }
 
   return (
-    <Container component="form" onSubmit={handleSubmit(interceptSubmit)}>
+    <Container onSubmit={handleSubmit(interceptSubmit)}>
       <TextField {...register('title')} label="제목" fullWidth sx={{ marginBottom: 2 }} />
       <ToastUIEditor
         initialValue={defaultValues?.description}
@@ -84,7 +84,7 @@ export default function BoardForm({ onSubmit, author, defaultValues, submitButto
   )
 }
 
-const Container = styled(Box)`
+const Container = styled.form`
   display: flex;
   flex-direction: column;
   margin: 16px;

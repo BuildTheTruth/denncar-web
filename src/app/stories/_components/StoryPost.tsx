@@ -2,6 +2,7 @@
 
 import AutoImage from '@/components/AutoImage'
 import { IMAGE_URL_TOKENIZER } from '@/constants/tokenizers'
+import { DENNCAR_PRESENT_IMAGE_URL } from '@/constants/urls'
 import { Story } from '@/interfaces/story'
 import Avatar from '@mui/material/Avatar'
 import Card from '@mui/material/Card'
@@ -23,7 +24,7 @@ export default function StoryPost({ story }: Props) {
 
   return (
     <Card onClick={handleCardClick}>
-      <AutoImage src={imageUrls[0]} height="240px" priority />
+      <AutoImage src={imageUrls[0] || DENNCAR_PRESENT_IMAGE_URL} height="240px" priority />
       <CardHeader
         avatar={<Avatar aria-label="recipe" src={story.authorPhotoUrl} />}
         titleTypographyProps={{ fontWeight: 600, fontSize: 16, noWrap: true }}

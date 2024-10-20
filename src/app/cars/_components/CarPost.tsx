@@ -2,6 +2,7 @@
 
 import AutoImage from '@/components/AutoImage'
 import { IMAGE_URL_TOKENIZER } from '@/constants/tokenizers'
+import { DENNCAR_PRESENT_IMAGE_URL } from '@/constants/urls'
 import { Car } from '@/interfaces/car'
 import { Box, Divider } from '@mui/material'
 import Card from '@mui/material/Card'
@@ -38,7 +39,7 @@ export default function CarPost({ car }: Props) {
           </Box>
         }
       />
-      <AutoImage src={imageUrls[0]} height="320px" />
+      <AutoImage src={imageUrls[0] || DENNCAR_PRESENT_IMAGE_URL} height="320px" />
       <CardContent sx={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Typography fontSize={24} fontWeight={600}>
           {car.price.toLocaleString()} 만원

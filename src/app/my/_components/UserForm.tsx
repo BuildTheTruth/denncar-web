@@ -61,7 +61,7 @@ export default function UserForm({ defaultValues, onSubmit }: Props) {
   }
 
   return (
-    <Container component="form" onSubmit={handleSubmit(interceptSubmit)}>
+    <Container onSubmit={handleSubmit(interceptSubmit)}>
       <Box sx={{ minWidth: '360px' }}>
         <Box height={80}>
           <Typography variant="h4" marginY={2}>
@@ -97,7 +97,7 @@ export default function UserForm({ defaultValues, onSubmit }: Props) {
   )
 }
 
-const Container = styled(Box)`
+const Container = styled.form`
   display: flex;
   min-width: 100%;
   flex-direction: column;
