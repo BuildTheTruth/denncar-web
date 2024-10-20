@@ -61,7 +61,7 @@ function Gnb({ children }: Props) {
 
   return (
     <Container>
-      <AppBar position="static" sx={{ background: '#1c1c1c' }}>
+      <AppBar position="static" sx={{ display: 'flex', background: '#1c1c1c' }}>
         <Toolbar>
           <Box
             display="flex"
@@ -119,8 +119,8 @@ const Container = styled.div`
 
 const Main = styled.main`
   display: flex;
+  flex: 1;
   width: 100%;
-  height: 100%;
 `
 
 export default Gnb
