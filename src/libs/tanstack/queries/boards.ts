@@ -1,17 +1,10 @@
 import useToast from '@/hooks/useToast'
-import { WithId } from '@/interfaces/base'
 import { BoardParams } from '@/interfaces/board'
-import {
-  deleteDocOnCollection,
-  setDocInCollection,
-  updateDocOnCollection
-} from '@/libs/firebase/firestore'
+import { addBoardWithId, deleteBoard, updateBoard } from '@/libs/firebase/firestore/board'
 import { deleteDirectoryInStorage } from '@/libs/firebase/storage'
 import { boardQueryOptions, boardsKeys, boardsQueryOptions } from '@/libs/tanstack/options/boards'
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-
-const COLLECTION_KEY = 'boards'
 
 export const useBoards = () => {
   const toast = useToast()
@@ -20,8 +13,7 @@ export const useBoards = () => {
   const { data: boards, refetch } = useSuspenseQuery(boardsQueryOptions())
 
   const createBoardMutation = useMutation({
-    mutationFn: ({ id, ...params }: WithId<BoardParams>) =>
-      setDocInCollection(COLLECTION_KEY, id, params),
+    mutationFn: addBoardWithId,
     onSuccess: () => {
       toast.success('게시판 등록 완료')
       router.replace('/boards')
@@ -40,7 +32,7 @@ export const useBoard = (id: string) => {
   const { data: board } = useSuspenseQuery(boardQueryOptions(id))
 
   const updateBoardMutation = useMutation({
-    mutationFn: (params: Partial<BoardParams>) => updateDocOnCollection(COLLECTION_KEY, id, params),
+    mutationFn: (params: Partial<BoardParams>) => updateBoard(id, params),
     onSuccess: () => {
       toast.success('게시글 수정 완료')
       router.replace(`/boards/${id}`)
@@ -49,7 +41,7 @@ export const useBoard = (id: string) => {
   })
 
   const deleteBoardMutation = useMutation({
-    mutationFn: () => deleteDocOnCollection(COLLECTION_KEY, id),
+    mutationFn: () => deleteBoard(id),
     onSuccess: () => {
       if (!board) return
       toast.success('게시글 삭제 완료')
