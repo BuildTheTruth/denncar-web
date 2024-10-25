@@ -1,6 +1,12 @@
-import { Car } from '@/interfaces/car'
+import { Car, CarParams } from '@/interfaces/car'
 import { User } from '@/interfaces/user'
-import { getDocByCollection } from '@/libs/firebase/firestore'
+import {
+  addDocInCollection,
+  deleteDocOnCollection,
+  getDocByCollection,
+  getDocsByCollection,
+  updateDocOnCollection
+} from '@/libs/firebase/firestore'
 import { getUser } from '@/libs/firebase/firestore/users'
 
 const COLLECTION_KEY = 'cars'
@@ -16,3 +22,12 @@ export const getCarWithAuthor = async (
   const author = await getUser(car.authorId)
   return { car, author }
 }
+
+export const getCars = () => getDocsByCollection<Car>(COLLECTION_KEY)
+
+export const addCar = (params: CarParams) => addDocInCollection(COLLECTION_KEY, params)
+
+export const updateCar = (id: string, params: Partial<CarParams>) =>
+  updateDocOnCollection(COLLECTION_KEY, id, params)
+
+export const deleteCar = (id: string) => deleteDocOnCollection(COLLECTION_KEY, id)
