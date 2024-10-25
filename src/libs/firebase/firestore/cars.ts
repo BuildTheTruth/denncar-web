@@ -1,11 +1,11 @@
 import { Car, CarParams } from '@/interfaces/car'
 import { User } from '@/interfaces/user'
 import {
-  addDocInCollection,
-  deleteDocOnCollection,
-  getDocByCollection,
-  getDocsByCollection,
-  updateDocOnCollection
+  addDocToCollection,
+  deleteDocFromCollection,
+  getDocFromCollection,
+  getDocsFromCollection,
+  updateDocInCollection
 } from '@/libs/firebase/firestore'
 import { getUser } from '@/libs/firebase/firestore/users'
 
@@ -17,17 +17,17 @@ export const getCarWithAuthor = async (
   car: Car | null
   author: User | null
 }> => {
-  const car = await getDocByCollection<Car>(COLLECTION_KEY, carId)
+  const car = await getDocFromCollection<Car>(COLLECTION_KEY, carId)
   if (!car) return { car: null, author: null }
   const author = await getUser(car.authorId)
   return { car, author }
 }
 
-export const getCars = () => getDocsByCollection<Car>(COLLECTION_KEY)
+export const getCars = () => getDocsFromCollection<Car>(COLLECTION_KEY)
 
-export const addCar = (params: CarParams) => addDocInCollection(COLLECTION_KEY, params)
+export const addCar = (params: CarParams) => addDocToCollection(COLLECTION_KEY, params)
 
 export const updateCar = (id: string, params: Partial<CarParams>) =>
-  updateDocOnCollection(COLLECTION_KEY, id, params)
+  updateDocInCollection(COLLECTION_KEY, id, params)
 
-export const deleteCar = (id: string) => deleteDocOnCollection(COLLECTION_KEY, id)
+export const deleteCar = (id: string) => deleteDocFromCollection(COLLECTION_KEY, id)
