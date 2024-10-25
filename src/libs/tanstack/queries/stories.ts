@@ -1,11 +1,6 @@
 import useToast from '@/hooks/useToast'
-import { WithId } from '@/interfaces/base'
 import { StoryParams } from '@/interfaces/story'
-import {
-  deleteDocOnCollection,
-  setDocInCollection,
-  updateDocOnCollection
-} from '@/libs/firebase/firestore'
+import { addStoryWithId, deleteStory, updateStory } from '@/libs/firebase/firestore/story'
 import { deleteDirectoryInStorage } from '@/libs/firebase/storage'
 import {
   storiesKeys,
@@ -15,16 +10,13 @@ import {
 import { useMutation, useQueryClient, useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
-const COLLECTION_KEY = 'stories'
-
 export const useStories = () => {
   const toast = useToast()
   const router = useRouter()
   const { data: stories, refetch } = useSuspenseQuery(storiesQueryOptions())
 
   const createStoryMutation = useMutation({
-    mutationFn: ({ id, ...params }: WithId<StoryParams>) =>
-      setDocInCollection(COLLECTION_KEY, id, params),
+    mutationFn: addStoryWithId,
     onSuccess: () => {
       toast.success('게시판 등록 완료')
       router.replace('/stories')
@@ -43,7 +35,7 @@ export const useStory = (id: string) => {
   const { data: story } = useSuspenseQuery(storyQueryOptions(id))
 
   const updateStoryMutation = useMutation({
-    mutationFn: (params: Partial<StoryParams>) => updateDocOnCollection(COLLECTION_KEY, id, params),
+    mutationFn: (params: Partial<StoryParams>) => updateStory(id, params),
     onSuccess: () => {
       toast.success('스토리 수정 완료')
       router.replace(`/stories/${id}`)
@@ -52,7 +44,7 @@ export const useStory = (id: string) => {
   })
 
   const deleteStoryMutation = useMutation({
-    mutationFn: () => deleteDocOnCollection(COLLECTION_KEY, id),
+    mutationFn: () => deleteStory(id),
     onSuccess: () => {
       if (!story) return
       toast.success('스토리 삭제 완료')
