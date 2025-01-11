@@ -88,7 +88,8 @@ function Gnb({ children }: Props) {
                 sx={{
                   color: 'white',
                   mx: 1,
-                  borderBottom: isCurrentPage(page.id) ? '1px solid white' : ''
+                  borderBottom: isCurrentPage(page.id) ? '2px solid white' : '',
+                  borderRadius: 0
                 }}
                 onClick={() => router.push(`/${page.id}`)}
               >
